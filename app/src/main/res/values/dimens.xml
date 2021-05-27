@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sizeTextSolveTask1">25sp</dimen>
+    <dimen name="margin_Left_Right_text">15dp</dimen>
+</resources>

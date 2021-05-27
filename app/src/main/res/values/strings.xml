@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Calculator</string>
+    <string name="runCalculatorButton_Text">Запустить калькулятор</string>
+    <string name="solveTask1_Text"><HTML>\tСвой калькулятор буду делать в виде часового циферблата. Поэтому для его реализации выбираю макет ConstraintLayout. В нём есть удобная возможность использовать полярную систему координат. Она мне пригодится для размещения цифр от 0 до 9 по окружности, а также других дополнительных элементов калькулятора.</HTML></string>
+    <string name="Tast1_Title">РЕШЕНИЕ ЗАДАНИЯ №1</string>
 </resources>
