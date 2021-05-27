@@ -3,4 +3,30 @@
     <string name="runCalculatorButton_Text">Запустить калькулятор</string>
     <string name="solveTask1_Text"><HTML>\tСвой калькулятор буду делать в виде часового циферблата. Поэтому для его реализации выбираю макет ConstraintLayout. В нём есть удобная возможность использовать полярную систему координат. Она мне пригодится для размещения цифр от 0 до 9 по окружности, а также других дополнительных элементов калькулятора.</HTML></string>
     <string name="Tast1_Title">РЕШЕНИЕ ЗАДАНИЯ №1</string>
+    <string name="_0">0</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="_divide">/</string>
+    <string name="_minus">-</string>
+    <string name="_zapitay">,</string>
+    <string name="_equal">=</string>
+    <string name="_multiply">*</string>
+    <string name="_plus">+</string>
+    <string name="_bracket_open">(</string>
+    <string name="_bracket_close">)</string>
+    <string name="_percent">%</string>
+    <string name="_plus_minus">+/-</string>
+    <string name="_stepen">x^n</string>
+    <string name="_sqrt">Кx</string>
+    <string name="_backspaceOne"><![CDATA[<-]]></string>
+    <string name="_backspace">C</string>
+    <string name="InputHistory_text">(2*3,39)+24,3*(904-28)/289=</string>
+    <string name="RESULT_text">97,1222145328</string>
 </resources>

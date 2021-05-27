@@ -2,4 +2,14 @@
 <resources>
     <dimen name="sizeTextSolveTask1">25sp</dimen>
     <dimen name="margin_Left_Right_text">15dp</dimen>
+    <dimen name="ButtonCircle_radius">130dp</dimen>
+    <dimen name="StandartButtonNumber_width">65dp</dimen>
+    <dimen name="StandartButtonNumber_height">65dp</dimen>
+    <dimen name="StandartButtonAction_width">40dp</dimen>
+    <dimen name="StandartButtonAction_height">40dp</dimen>
+    <dimen name="textButtonNumbers_size">25sp</dimen>
+    <dimen name="textButtonActions_size">19sp</dimen>
+    <dimen name="ButtonsRight_margin">0dp</dimen>
+    <dimen name="ResultHistoryText_size">24sp</dimen>
+    <dimen name="InputHistoryMargin_left">0dp</dimen>
 </resources>
