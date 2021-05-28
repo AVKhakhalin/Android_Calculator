@@ -27,6 +27,8 @@
     <string name="_sqrt">Кx</string>
     <string name="_backspaceOne"><![CDATA[<-]]></string>
     <string name="_backspace">C</string>
-    <string name="InputHistory_text">(2*3,39)+24,3*(904-28)/289=</string>
-    <string name="RESULT_text">97,1222145328</string>
+<!--    <string name="InputHistory_text">(2*3,39)+24,3*(904-28)/289=</string>-->
+<!--    <string name="RESULT_text">97,1222145328</string>-->
+    <string name="InputHistory_text"></string>
+    <string name="RESULT_text"></string>
 </resources>

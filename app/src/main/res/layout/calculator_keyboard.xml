@@ -7,6 +7,11 @@
     android:layout_gravity="center_horizontal"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/back_calc"/>
+
     <Button
         android:id="@+id/_0"
         android:layout_width="@dimen/StandartButtonNumber_width"
@@ -323,7 +328,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent" >
 
         <TextView
             android:id="@+id/_input_history_text"
