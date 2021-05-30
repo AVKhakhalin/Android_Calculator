@@ -7,8 +7,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 public class CalculatorKeyboardActivity extends Activity implements View.OnClickListener {
     private TextView outputResultText;
+    private TextView inputedHistoryText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,52 +26,78 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id._0:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%d", inputedHistoryText.getText(), 0));
                 break;
             case R.id._1:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%d", inputedHistoryText.getText(), 1));
                 break;
             case R.id._2:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%d", inputedHistoryText.getText(), 2));
                 break;
             case R.id._3:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%d", inputedHistoryText.getText(), 3));
                 break;
             case R.id._4:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%d", inputedHistoryText.getText(), 4));
                 break;
             case R.id._5:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%d", inputedHistoryText.getText(), 5));
                 break;
             case R.id._6:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%d", inputedHistoryText.getText(), 6));
                 break;
             case R.id._7:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%d", inputedHistoryText.getText(), 7));
                 break;
             case R.id._8:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%d", inputedHistoryText.getText(), 8));
                 break;
             case R.id._9:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%d", inputedHistoryText.getText(), 9));
                 break;
             case R.id._equal:
                 break;
             case R.id._zapitay:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%s", inputedHistoryText.getText(), ","));
                 break;
             case R.id._backspace:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), ""));
                 break;
             case R.id._bracket_close:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%s", inputedHistoryText.getText(), ")"));
                 break;
             case R.id._backspace_one:
+                if (inputedHistoryText.getText().length() > 0)
+                {
+                    inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", inputedHistoryText.getText().subSequence(0, inputedHistoryText.getText().length() - 1)));
+                }
                 break;
             case R.id._bracket_open:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%s", inputedHistoryText.getText(), "("));
                 break;
             case R.id._divide:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%s", inputedHistoryText.getText(), "/"));
                 break;
             case R.id._minus:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%s", inputedHistoryText.getText(), "-"));
                 break;
             case R.id._multiply:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%s", inputedHistoryText.getText(), "*"));
                 break;
             case R.id._percent:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%s", inputedHistoryText.getText(), "%"));
                 break;
             case R.id._plus:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%s", inputedHistoryText.getText(), "+"));
                 break;
             case R.id._plus_minus:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%s", inputedHistoryText.getText(), ""));
                 break;
             case R.id._sqrt:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%s", inputedHistoryText.getText(), "КОР("));
                 break;
             case R.id._stepen:
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%s", inputedHistoryText.getText(), "^("));
                 break;
             default:
                 break;
@@ -77,6 +106,7 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
 
     private void initTextFields() {
         outputResultText = findViewById(R.id._RESULT);
+        inputedHistoryText = findViewById(R.id._inputed_history_text);
     }
 
     private void initButtons() {
