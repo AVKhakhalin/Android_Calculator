@@ -28,7 +28,7 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
 
         initTextFields();
         initButtons();
-        Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -38,61 +38,61 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
                 calcLogic.addNumeral(0);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
 //                outputResultText.setText(String.format(Locale.getDefault(), "%f", calcLogic.calculate()));
-                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
                 break;
             case R.id._1:
                 calcLogic.addNumeral(1);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
 //                outputResultText.setText(String.format(Locale.getDefault(), "%f", calcLogic.calculate()));
-                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
                 break;
             case R.id._2:
                 calcLogic.addNumeral(2);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
 //                outputResultText.setText(String.format(Locale.getDefault(), "%f", calcLogic.calculate()));
-                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
                 break;
             case R.id._3:
                 calcLogic.addNumeral(3);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
 //                outputResultText.setText(String.format(Locale.getDefault(), "%f", calcLogic.calculate()));
-                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
                 break;
             case R.id._4:
                 calcLogic.addNumeral(4);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
 //                outputResultText.setText(String.format(Locale.getDefault(), "%f", calcLogic.calculate()));
-                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
                 break;
             case R.id._5:
                 calcLogic.addNumeral(5);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
 //                outputResultText.setText(String.format(Locale.getDefault(), "%f", calcLogic.calculate()));
-                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
                 break;
             case R.id._6:
                 calcLogic.addNumeral(6);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
 //                outputResultText.setText(String.format(Locale.getDefault(), "%f", calcLogic.calculate()));
-                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
                 break;
             case R.id._7:
                 calcLogic.addNumeral(7);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
 //                outputResultText.setText(String.format(Locale.getDefault(), "%f", calcLogic.calculate()));
-                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
                 break;
             case R.id._8:
                 calcLogic.addNumeral(8);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
 //                outputResultText.setText(String.format(Locale.getDefault(), "%f", calcLogic.calculate()));
-                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
                 break;
             case R.id._9:
                 calcLogic.addNumeral(9);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
 //                outputResultText.setText(String.format(Locale.getDefault(), "%f", calcLogic.calculate()));
-                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
                 break;
             case R.id._equal:
                 outputResultText.setText(String.format(Locale.getDefault(), "%f", calcLogic.calculate()));
@@ -103,7 +103,7 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
 //                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%s", inputedHistoryText.getText(), ","));
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
 //                outputResultText.setText(String.format(Locale.getDefault(), "%f %d %d", calcLogic.getCurValue(), calcLogic.getCurZapitay(), calcLogic.getCurNumber()));
-                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
                 break;
             case R.id._bracket_open:
 //                calcLogic.setNewFunction(FUNC_NO);
