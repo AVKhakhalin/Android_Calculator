@@ -320,7 +320,7 @@
         app:layout_constraintTop_toTopOf="@id/_zapitay"
         app:layout_constraintStart_toEndOf="@id/_9"
         app:layout_constraintEnd_toStartOf="@id/_3"
-        app:layout_constraintBottom_toTopOf="@id/_equal"/>
+        app:layout_constraintBottom_toTopOf="@id/_equal" />
 
     <HorizontalScrollView
         android:id="@+id/_input_history"

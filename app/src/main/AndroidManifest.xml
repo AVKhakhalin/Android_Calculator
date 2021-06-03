@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Calculator">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,7 +18,7 @@
         </activity>
 
         <activity
-            android:name=".CalculatorKeyboardActivity"
+            android:name=".ui.CalculatorKeyboardActivity"
             android:label="Keyboard">
         </activity>
     </application>

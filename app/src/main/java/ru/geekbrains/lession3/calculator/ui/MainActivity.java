@@ -1,4 +1,4 @@
-package ru.geekbrains.lession3.calculator;
+package ru.geekbrains.lession3.calculator.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import ru.geekbrains.lession3.calculator.R;
 
 public class MainActivity extends AppCompatActivity
 {
