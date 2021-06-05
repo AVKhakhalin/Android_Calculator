@@ -59,8 +59,8 @@ public class CalcLogic implements Constants
         inputNumbers.get(posNumber).setPercent(_isPercent);
     }
 
-    public boolean setNewLevelBracket(boolean isCloseCurBracket /*true - закрываем текущую скобку, false - открываем текущую скобку*/, int _action)
-    {
+//    public boolean setNewLevelBracket(boolean isCloseCurBracket /*true - закрываем текущую скобку, false - открываем текущую скобку*/, int _action)
+/*    {
         if (isCloseCurBracket == false)
         {
             curBracketLevel++;
@@ -80,7 +80,7 @@ public class CalcLogic implements Constants
             }
         }
     }
-
+*/
     public void clearAll()
     {
         inputNumbers = new LinkedList<>();
@@ -303,10 +303,10 @@ public class CalcLogic implements Constants
         return result;
     }
 
-    public double getCurValue()
-    {
-        return inputNumbers.get(curNumber).getValue();
-    }
+ //   public double getCurValue()
+ //   {
+ //       return inputNumbers.get(curNumber).getValue();
+ //   }
 
     public void setCurZapitay()
     {
@@ -334,7 +334,7 @@ public class CalcLogic implements Constants
         return curNumber;
     }
 
-    public String setNewFunction(int typeFuncInBracket)
+    public String setNewFunction(int typeFuncInBracket) // Данный метод не только устанавливает новую функцию, но и открывает скобку
     {
         if ((inputNumbers.get(curNumber).getTypeFuncInBracket() != FUNC_NO) || (typeFuncInBracket == FUNC_NO))
         {
@@ -369,6 +369,21 @@ public class CalcLogic implements Constants
 
     public void setNewAction(int action)
     {
+        boolean isPrevDatesComplited = false;
+        if (curNumber > 0)
+        {
+            iterInputNumbersForCalc = inputNumbers.listIterator();
+            Dates prevDates = iterInputNumbersForCalc.next();
+            if ((prevDates.getIsValue() == true) || ((prevDates.getIsBracket() == true) && (prevDates.getIsClose() == false)) || ((prevDates.getIsBracket() == true) && (prevDates.getIsClose() == true)))
+            {
+                isPrevDatesComplited = true;
+            }
+        }
+        else
+        {
+            isPrevDatesComplited = true;
+        }
+
         if (inputNumbers.get(curNumber).getIsValue() == false)
         {
             if (inputNumbers.size() > 1)
@@ -407,8 +422,11 @@ public class CalcLogic implements Constants
             }
             else
             {
-                add(false, false, FUNC_NO, 1, 0d, false, action, false);
-                curNumber++;
+                if (isPrevDatesComplited == true)
+                {
+                    add(false, false, FUNC_NO, 1, 0d, false, action, false);
+                    curNumber++;
+                }
             }
         }
     }
@@ -427,22 +445,25 @@ public class CalcLogic implements Constants
     {
         String outputString = "";
         Dates curDates;
-        int counter = -1;
+        Dates prevDates = null;
+//        int counter = -1;
 
         iterInputNumbersForCalc = inputNumbers.listIterator();
 
         while (iterInputNumbersForCalc.hasNext())
         {
             curDates = iterInputNumbersForCalc.next();
-            counter++;
-            if (counter == 0)
-            {
-                outputString += outputStringActionAndFunction(curDates.getIsBracket(), curDates.getIsClose(), curDates.getTypeFuncInBracket(),curDates.getValue() * curDates.getSign(), curDates.getIsValue(), curDates.getNumberZapitay(), curDates.getValueFract(), curDates.getAction(), true);
-            }
-            else
-            {
-                outputString += outputStringActionAndFunction(curDates.getIsBracket(), curDates.getIsClose(), curDates.getTypeFuncInBracket(),curDates.getValue() * curDates.getSign(), curDates.getIsValue(), curDates.getNumberZapitay(), curDates.getValueFract(), curDates.getAction(), false);
-            }
+//            counter++;
+            outputString += outputStringActionAndFunction(prevDates, curDates);
+//            if (counter == 0)
+//            {
+//                outputString += outputStringActionAndFunction(curDates.getIsBracket(), curDates.getIsClose(), curDates.getTypeFuncInBracket(),curDates.getValue() * curDates.getSign(), curDates.getIsValue(), curDates.getNumberZapitay(), curDates.getValueFract(), curDates.getAction(), true);
+//            }
+//            else
+//            {
+//                outputString += outputStringActionAndFunction(curDates.getIsBracket(), curDates.getIsClose(), curDates.getTypeFuncInBracket(),curDates.getValue() * curDates.getSign(), curDates.getIsValue(), curDates.getNumberZapitay(), curDates.getValueFract(), curDates.getAction(), false);
+//            }
+            prevDates = curDates;
         }
 
         return outputString;
@@ -467,7 +488,7 @@ public class CalcLogic implements Constants
         return stringFunction;
     }
 
-    private String outputStringFunctionClose(boolean isBracket, boolean isClose, int typeFuncInBracket)
+    private String outputStringFunctionClose(boolean isBracket, boolean isClose)
     {
         String stringFunction = "";
         if ((isBracket == true) && (isClose == true))
@@ -477,17 +498,36 @@ public class CalcLogic implements Constants
         return stringFunction;
     }
 
-    private String outputStringActionAndFunction(boolean isBracket, boolean isClose, int typeFuncInBracket, double value, boolean isValue, int numberZapitay, String valueFract, int action, boolean isFirst)
+    private String outputStringActionAndFunction(Dates prevDates, Dates curDates)
     {
+        boolean isBracket = curDates.getIsBracket();
+        boolean isClose = curDates.getIsClose();
+        int typeFuncInBracket = curDates.getTypeFuncInBracket();
+        int bracketLevel = curDates.getBracketLevel();
+        int sign = curDates.getSign();
+        double value = curDates.getValue();
+        boolean isValue = curDates.getIsValue();
+        String valueFract = curDates.getValueFract();
+        int action = curDates.getAction();
+        boolean isPercent = curDates.getIsPercent();
+        int numberZapitay = curDates.getNumberZapitay();
+        boolean turnOffZapitay = curDates.getTurnOffZapitay();
+
+        boolean isPrevBraketOpen = false;
+        if ((prevDates != null) && (prevDates.getIsBracket() == true) && (prevDates.getIsClose() == false))
+        {
+            isPrevBraketOpen = true;
+        }
+        boolean isFirst = (prevDates == null ? true : false);
         String stringAction = "";
         String valueString;
         if (valueFract.equals("") == true)
         {
-            valueString = (numberZapitay == 0 ? String.format("%d.%s", (int) value,  outputStringFunctionClose(isBracket, isClose, typeFuncInBracket)) : String.format("%d%s", (int) value,  outputStringFunctionClose(isBracket, isClose, typeFuncInBracket)));
+            valueString = (numberZapitay == 0 ? String.format("%d.%s", (int) value,  outputStringFunctionClose(isBracket, isClose)) : String.format("%d%s", (int) value,  outputStringFunctionClose(isBracket, isClose)));
         }
         else
         {
-            valueString = String.format("%d.%s%s", (int) value, valueFract, outputStringFunctionClose(isBracket, isClose, typeFuncInBracket));
+            valueString = String.format("%d.%s%s", (int) value, valueFract, outputStringFunctionClose(isBracket, isClose));
         }
 
         if (isFirst == false)
@@ -510,7 +550,7 @@ public class CalcLogic implements Constants
                     stringAction = "/" + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + "%";
                     break;
                 case ACT_PERS_PLUS:
-                    stringAction = "+" + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + "%";
+                    stringAction = (isPrevBraketOpen == false ? "+" : "") + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + "%";
                     break;
                 case ACT_PERS_MINUS:
                     stringAction = "-" + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + "%";
@@ -538,11 +578,11 @@ public class CalcLogic implements Constants
                 case ACT_PLUS:
                     if (isValue == true)
                     {
-                        stringAction = "+" + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")"));
+                        stringAction = (isPrevBraketOpen == false ? "+" : "") + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")"));
                     }
                     else
                     {
-                        stringAction = "+" + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket);
+                        stringAction = (isPrevBraketOpen == false ? "+" : "") + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket);
                     }
                     break;
                 case ACT_MINUS:
