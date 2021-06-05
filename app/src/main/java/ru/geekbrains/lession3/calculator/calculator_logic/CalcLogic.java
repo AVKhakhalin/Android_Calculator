@@ -244,6 +244,7 @@ public class CalcLogic implements Constants
                 if ((curDates.getAction() == BASE_ACTIONS[i]) && (curNumbersForCals.size() > 1))
                 {
                     prevDates.setValue(doBaseActions(prevDates.getValue() * prevDates.getSign(), curDates.getValue() * curDates.getSign(), curDates.getAction()));
+                    prevDates.setSign(1);
                     iterInputNumbersForCalc.remove();
                 }
                 else
@@ -257,7 +258,7 @@ public class CalcLogic implements Constants
             }
         }
 
-        result = curNumbersForCals.get(0).getValue();
+        result = curNumbersForCals.get(0).getValue() * curNumbersForCals.get(0).getSign();
 
         return result;
     }
@@ -475,7 +476,6 @@ public class CalcLogic implements Constants
         }
         return stringFunction;
     }
-
 
     private String outputStringActionAndFunction(boolean isBracket, boolean isClose, int typeFuncInBracket, double value, boolean isValue, int numberZapitay, String valueFract, int action, boolean isFirst)
     {
