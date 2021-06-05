@@ -12,311 +12,397 @@
         android:layout_height="match_parent"
         android:background="@drawable/back_calc"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_0"
         android:layout_width="@dimen/StandartButtonNumber_width"
         android:layout_height="@dimen/StandartButtonNumber_height"
         android:text="@string/_0"
         android:textSize="@dimen/textButtonNumbers_size"
         android:textStyle="bold"
-        android:background="@drawable/buttons_with_numbers"
+        android:textColor="@color/black"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_numbers_mg"
+        app:backgroundTint="@null"
         app:layout_constraintCircle="@id/_RESULT"
         app:layout_constraintCircleRadius="@dimen/ButtonCircle_radius"
         app:layout_constraintCircleAngle="0"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/_1"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_1"
         android:layout_width="@dimen/StandartButtonNumber_width"
         android:layout_height="@dimen/StandartButtonNumber_height"
         android:text="@string/_1"
         android:textSize="@dimen/textButtonNumbers_size"
         android:textStyle="bold"
-        android:background="@drawable/buttons_with_numbers"
+        android:textColor="@color/black"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_numbers_mg"
+        app:backgroundTint="@null"
         app:layout_constraintCircle="@id/_RESULT"
         app:layout_constraintCircleRadius="@dimen/ButtonCircle_radius"
         app:layout_constraintCircleAngle="30"
         app:layout_constraintStart_toEndOf="@id/_0"
         app:layout_constraintBottom_toTopOf="@id/_2"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_2"
         android:layout_width="@dimen/StandartButtonNumber_width"
         android:layout_height="@dimen/StandartButtonNumber_height"
         android:text="@string/_2"
         android:textSize="@dimen/textButtonNumbers_size"
         android:textStyle="bold"
-        android:background="@drawable/buttons_with_numbers"
+        android:textColor="@color/black"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_numbers_mg"
+        app:backgroundTint="@null"
         app:layout_constraintCircle="@id/_RESULT"
         app:layout_constraintCircleRadius="@dimen/ButtonCircle_radius"
         app:layout_constraintCircleAngle="60"
         app:layout_constraintStart_toEndOf="@id/_RESULT"
         app:layout_constraintBottom_toTopOf="@id/_RESULT"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_3"
         android:layout_width="@dimen/StandartButtonNumber_width"
         android:layout_height="@dimen/StandartButtonNumber_height"
         android:text="@string/_3"
         android:textSize="@dimen/textButtonNumbers_size"
         android:textStyle="bold"
-        android:background="@drawable/buttons_with_numbers"
+        android:textColor="@color/black"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_numbers_mg"
+        app:backgroundTint="@null"
         app:layout_constraintCircle="@id/_RESULT"
         app:layout_constraintCircleRadius="@dimen/ButtonCircle_radius"
         app:layout_constraintCircleAngle="90"
         app:layout_constraintStart_toEndOf="@id/_RESULT"
         app:layout_constraintTop_toBottomOf="@id/_2"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_4"
         android:layout_width="@dimen/StandartButtonNumber_width"
         android:layout_height="@dimen/StandartButtonNumber_height"
         android:text="@string/_4"
         android:textSize="@dimen/textButtonNumbers_size"
         android:textStyle="bold"
-        android:background="@drawable/buttons_with_numbers"
+        android:textColor="@color/black"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_numbers_mg"
+        app:backgroundTint="@null"
         app:layout_constraintCircle="@id/_RESULT"
         app:layout_constraintCircleRadius="@dimen/ButtonCircle_radius"
         app:layout_constraintCircleAngle="120"
         app:layout_constraintStart_toEndOf="@id/_RESULT"
         app:layout_constraintTop_toBottomOf="@id/_3"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_5"
         android:layout_width="@dimen/StandartButtonNumber_width"
         android:layout_height="@dimen/StandartButtonNumber_height"
         android:text="@string/_5"
         android:textSize="@dimen/textButtonNumbers_size"
         android:textStyle="bold"
-        android:background="@drawable/buttons_with_numbers"
+        android:textColor="@color/black"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_numbers_mg"
+        app:backgroundTint="@null"
         app:layout_constraintCircle="@id/_RESULT"
         app:layout_constraintCircleRadius="@dimen/ButtonCircle_radius"
         app:layout_constraintCircleAngle="150"
         app:layout_constraintEnd_toStartOf="@id/_4"
         app:layout_constraintTop_toBottomOf="@id/_4"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_6"
         android:layout_width="@dimen/StandartButtonNumber_width"
         android:layout_height="@dimen/StandartButtonNumber_height"
         android:text="@string/_6"
         android:textSize="@dimen/textButtonNumbers_size"
         android:textStyle="bold"
-        android:background="@drawable/buttons_with_numbers"
+        android:textColor="@color/black"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_numbers_mg"
+        app:backgroundTint="@null"
         app:layout_constraintCircle="@id/_RESULT"
         app:layout_constraintCircleRadius="@dimen/ButtonCircle_radius"
         app:layout_constraintCircleAngle="180"
         app:layout_constraintEnd_toStartOf="@id/_5"
         app:layout_constraintTop_toBottomOf="@id/_equal"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_7"
         android:layout_width="@dimen/StandartButtonNumber_width"
         android:layout_height="@dimen/StandartButtonNumber_height"
         android:text="@string/_7"
         android:textSize="@dimen/textButtonNumbers_size"
         android:textStyle="bold"
-        android:background="@drawable/buttons_with_numbers"
+        android:textColor="@color/black"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_numbers_mg"
+        app:backgroundTint="@null"
         app:layout_constraintCircle="@id/_RESULT"
         app:layout_constraintCircleRadius="@dimen/ButtonCircle_radius"
         app:layout_constraintCircleAngle="210"
         app:layout_constraintEnd_toStartOf="@id/_6"
         app:layout_constraintTop_toBottomOf="@id/_8"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_8"
         android:layout_width="@dimen/StandartButtonNumber_width"
         android:layout_height="@dimen/StandartButtonNumber_height"
         android:text="@string/_8"
         android:textSize="@dimen/textButtonNumbers_size"
         android:textStyle="bold"
-        android:background="@drawable/buttons_with_numbers"
+        android:textColor="@color/black"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_numbers_mg"
+        app:backgroundTint="@null"
         app:layout_constraintCircle="@id/_RESULT"
         app:layout_constraintCircleRadius="@dimen/ButtonCircle_radius"
         app:layout_constraintCircleAngle="240"
         app:layout_constraintEnd_toStartOf="@id/_7"
         app:layout_constraintBottom_toTopOf="@id/_7"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_9"
         android:layout_width="@dimen/StandartButtonNumber_width"
         android:layout_height="@dimen/StandartButtonNumber_height"
         android:text="@string/_9"
         android:textSize="@dimen/textButtonNumbers_size"
         android:textStyle="bold"
-        android:background="@drawable/buttons_with_numbers"
+        android:textColor="@color/black"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_numbers_mg"
+        app:backgroundTint="@null"
         app:layout_constraintCircle="@id/_RESULT"
         app:layout_constraintCircleRadius="@dimen/ButtonCircle_radius"
         app:layout_constraintCircleAngle="270"
         app:layout_constraintBottom_toTopOf="@id/_8"
         app:layout_constraintEnd_toStartOf="@id/_RESULT"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_divide"
         android:layout_width="@dimen/StandartButtonAction_width"
         android:layout_height="@dimen/StandartButtonAction_height"
         android:text="@string/_divide"
         android:textSize="@dimen/textButtonActions_size"
-        android:background="@drawable/buttons_with_actions"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_actions_mg"
+        app:backgroundTint="@null"
         app:layout_constraintCircle="@id/_RESULT"
         app:layout_constraintCircleRadius="@dimen/ButtonCircle_radius"
         app:layout_constraintCircleAngle="300"
         app:layout_constraintBottom_toTopOf="@id/_RESULT"
         app:layout_constraintEnd_toStartOf="@id/_RESULT"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_minus"
         android:layout_width="@dimen/StandartButtonAction_width"
         android:layout_height="@dimen/StandartButtonAction_height"
         android:text="@string/_minus"
         android:textSize="@dimen/textButtonActions_size"
-        android:background="@drawable/buttons_with_actions"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_actions_mg"
+        app:backgroundTint="@null"
         app:layout_constraintCircle="@id/_RESULT"
         app:layout_constraintCircleRadius="@dimen/ButtonCircle_radius"
         app:layout_constraintCircleAngle="330"
         app:layout_constraintEnd_toStartOf="@id/_0"
         app:layout_constraintBottom_toTopOf="@id/_divide"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_zapitay"
         android:layout_width="@dimen/StandartButtonAction_width"
         android:layout_height="@dimen/StandartButtonAction_height"
         android:text="@string/_zapitay"
         android:textSize="@dimen/textButtonActions_size"
         android:textStyle="bold"
-        android:background="@drawable/buttons_with_actions"
+        android:textColor="@color/black"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_actions_mg"
+        app:backgroundTint="@null"
         app:layout_constraintTop_toBottomOf="@id/_0"
         app:layout_constraintStart_toEndOf="@id/_minus"
         app:layout_constraintEnd_toStartOf="@id/_1"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_multiply"
         android:layout_width="@dimen/StandartButtonAction_width"
         android:layout_height="@dimen/StandartButtonAction_height"
         android:text="@string/_multiply"
         android:textSize="@dimen/textButtonActions_size"
-        android:background="@drawable/buttons_with_actions"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_actions_mg"
+        app:backgroundTint="@null"
         app:layout_constraintTop_toTopOf="@id/_divide"
         app:layout_constraintEnd_toStartOf="@id/_divide"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_plus"
         android:layout_width="@dimen/StandartButtonAction_width"
         android:layout_height="@dimen/StandartButtonAction_height"
         android:text="@string/_plus"
         android:textSize="@dimen/textButtonActions_size"
-        android:background="@drawable/buttons_with_actions"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_actions_mg"
+        app:backgroundTint="@null"
         app:layout_constraintTop_toTopOf="@id/_minus"
         app:layout_constraintEnd_toStartOf="@id/_minus"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_bracket_open"
         android:layout_width="@dimen/StandartButtonAction_width"
         android:layout_height="@dimen/StandartButtonAction_height"
         android:text="@string/_bracket_open"
         android:textSize="@dimen/textButtonActions_size"
-        android:background="@drawable/buttons_with_actions"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_actions_mg"
+        app:backgroundTint="@null"
         app:layout_constraintTop_toTopOf="@id/_1"
         app:layout_constraintStart_toEndOf="@id/_1"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_bracket_close"
         android:layout_width="@dimen/StandartButtonAction_width"
         android:layout_height="@dimen/StandartButtonAction_height"
         android:text="@string/_bracket_close"
         android:textSize="@dimen/textButtonActions_size"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         android:layout_marginRight="@dimen/ButtonsRight_margin"
-        android:background="@drawable/buttons_with_actions"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_actions_mg"
+        app:backgroundTint="@null"
         app:layout_constraintTop_toTopOf="@id/_2"
         app:layout_constraintStart_toEndOf="@id/_2"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_percent"
         android:layout_width="@dimen/StandartButtonAction_width"
         android:layout_height="@dimen/StandartButtonAction_height"
         android:text="@string/_percent"
         android:textSize="@dimen/textButtonActions_size"
-        android:background="@drawable/buttons_with_actions"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_actions_mg"
+        app:backgroundTint="@null"
         app:layout_constraintTop_toBottomOf="@id/_4"
         app:layout_constraintStart_toEndOf="@id/_5"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_plus_minus"
         android:layout_width="@dimen/StandartButtonAction_width"
         android:layout_height="@dimen/StandartButtonAction_height"
         android:text="@string/_plus_minus"
         android:textSize="@dimen/textButtonActions_size"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:layout_marginRight="@dimen/ButtonsRight_margin"
-        android:background="@drawable/buttons_with_actions"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_actions_mg"
+        app:backgroundTint="@null"
         app:layout_constraintTop_toTopOf="@id/_4"
         app:layout_constraintStart_toEndOf="@id/_4"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_stepen"
         android:layout_width="@dimen/StandartButtonAction_width"
         android:layout_height="@dimen/StandartButtonAction_height"
         android:text="@string/_stepen"
         android:textSize="@dimen/textButtonActions_size"
         android:textAllCaps="false"
-        android:background="@drawable/buttons_with_actions"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_actions_mg"
+        app:backgroundTint="@null"
         app:layout_constraintTop_toTopOf="@id/_8"
         app:layout_constraintEnd_toStartOf="@id/_8" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_sqrt"
         android:layout_width="@dimen/StandartButtonAction_width"
         android:layout_height="@dimen/StandartButtonAction_height"
         android:text="@string/_sqrt"
         android:textSize="@dimen/textButtonActions_size"
         android:textAllCaps="false"
-        android:background="@drawable/buttons_with_actions"
+        android:textColor="@color/black"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_actions_mg"
+        app:backgroundTint="@null"
         app:layout_constraintTop_toBottomOf="@id/_8"
         app:layout_constraintEnd_toStartOf="@id/_7"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_equal"
         android:layout_width="@dimen/StandartButtonAction_width"
         android:layout_height="@dimen/StandartButtonAction_height"
         android:text="@string/_equal"
         android:textSize="@dimen/textButtonActions_size"
-        android:background="@drawable/buttons_with_actions"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_actions_mg"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toTopOf="@id/_6"
         app:layout_constraintStart_toEndOf="@id/_7"
         app:layout_constraintEnd_toStartOf="@id/_5"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_backspace_one"
         android:layout_width="@dimen/StandartButtonAction_width"
         android:layout_height="@dimen/StandartButtonAction_height"
         android:text="@string/_backspaceOne"
         android:textSize="@dimen/textButtonActions_size"
-        android:background="@drawable/buttons_with_actions"
+        android:textColor="@color/red_erase"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_actions_mg"
+        app:backgroundTint="@null"
         app:layout_constraintEnd_toStartOf="@id/_backspace"
-        app:layout_constraintBottom_toTopOf="@id/_input_history"/>
+        app:layout_constraintBottom_toTopOf="@id/_input_history"
+        app:layout_constraintTop_toBottomOf="@id/_6"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/_backspace"
         android:layout_width="@dimen/StandartButtonAction_width"
         android:layout_height="@dimen/StandartButtonAction_height"
         android:text="@string/_backspace"
         android:textSize="@dimen/textButtonActions_size"
-        android:background="@drawable/buttons_with_actions"
+        android:textColor="@color/red_erase"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:padding="@dimen/text_in_button_padding"
+        android:background="@drawable/buttons_with_actions_mg"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toTopOf="@id/_input_history"
         app:layout_constraintEnd_toEndOf="@id/_input_history" />
 
     <TextView
         android:id="@+id/_RESULT"
         android:layout_width="wrap_content"
-        android:layout_height="43dp"
+        android:layout_height="@dimen/height_result_text"
         android:text="@string/RESULT_text"
         android:textSize="@dimen/ResultHistoryText_size"
         android:textColor="@color/Result_color"
+        android:paddingLeft="@dimen/padding_output_text"
         android:ems="6"
         android:gravity="center_vertical"
-        android:background="@android:color/holo_green_dark"
+        android:background="@drawable/background_result_textview"
         app:layout_constraintTop_toTopOf="@id/_zapitay"
         app:layout_constraintStart_toEndOf="@id/_9"
         app:layout_constraintEnd_toStartOf="@id/_3"
@@ -326,9 +412,8 @@
         android:id="@+id/_input_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" >
+        app:layout_constraintTop_toBottomOf="@id/_backspace_one"
+        app:layout_constraintStart_toStartOf="parent" >
 
         <TextView
             android:id="@+id/_inputed_history_text"
@@ -336,9 +421,10 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/ResultHistoryText_size"
             android:text="@string/InputHistory_text"
-            android:ems="14"
+            android:paddingLeft="@dimen/padding_output_text"
+            android:ems="13"
             android:textColor="@color/InputHistory_color"
-            android:background="@color/BackgroundInputHistory_color"
+            android:background="@drawable/background_input_history"
             android:layout_marginLeft="@dimen/InputHistoryMargin_left"/>
     </HorizontalScrollView>
 
