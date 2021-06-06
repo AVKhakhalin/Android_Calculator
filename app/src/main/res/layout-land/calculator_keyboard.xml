@@ -250,7 +250,7 @@
         android:layout_height="@dimen/height_result_text"
         android:text="@string/RESULT_text"
         android:textSize="@dimen/ResultHistoryText_size"
-        android:textColor="@color/Result_color"
+        android:textColor="@color/red_erase"
         android:paddingLeft="@dimen/padding_output_text"
         android:ems="6"
         android:gravity="center_vertical"
@@ -276,7 +276,7 @@
             android:text="@string/InputHistory_text"
             android:paddingLeft="@dimen/padding_output_text"
             android:ems="13"
-            android:textColor="@color/InputHistory_color"
+            android:textColor="@color/BackgroundInputHistory_color"
             android:background="@drawable/background_input_history"
             android:layout_marginLeft="@dimen/InputHistoryMargin_left"/>
     </HorizontalScrollView>
