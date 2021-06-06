@@ -43,7 +43,7 @@ public class CalcLogic implements Constants
 
     public void add(boolean _isBracket, boolean _isClose, int _typeFuncInBracket, int _sign, double _value, boolean _isValue, int _action, boolean _isPercent)
     {
-        inputNumbers.add(new Dates(_isBracket, _isClose, curBracketLevel, _typeFuncInBracket , _sign, _value, _isValue, _action, _isPercent));
+        inputNumbers.add(new Dates(_isBracket, _isClose, _typeFuncInBracket, curBracketLevel , _sign, _value, _isValue, _action, _isPercent));
     }
 
     public void set(int posNumber, boolean _isBracket, boolean _isClose, int _typeFuncInBracket, int _bracketLevel, int _sign, double _value, boolean _isValue, int _action, boolean _isPercent)
@@ -454,6 +454,7 @@ public class CalcLogic implements Constants
         {
             curDates = iterInputNumbersForCalc.next();
 //            counter++;
+            int viewValue = curDates.getTypeFuncInBracket();
             outputString += outputStringActionAndFunction(prevDates, curDates);
 //            if (counter == 0)
 //            {
@@ -469,12 +470,13 @@ public class CalcLogic implements Constants
         return outputString;
     }
 
-    private String outputStringFunctionOpen(boolean isBracket, boolean isClose, int typeFuncInBracket)
+    //    private String outputStringFunctionOpen(boolean isBracket, boolean isClose, int typeFuncInBracket)
+    private String outputStringFunctionOpen(Dates curDates)
     {
         String stringFunction = "";
-        if ((isBracket == true) && (isClose == false))
+        if ((curDates.getIsBracket() == true) && (curDates.getIsClose() == false))
         {
-            switch (typeFuncInBracket)
+            switch (curDates.getTypeFuncInBracket())
             {
                 case FUNC_SQRT:
                     stringFunction = "SQRT(";
@@ -536,63 +538,63 @@ public class CalcLogic implements Constants
                 case ACT_STEP:
                     if (isValue == true)
                     {
-                        stringAction = "^" + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket) + String.format("%s", valueString);
+                        stringAction = "^" + outputStringFunctionOpen(curDates) + String.format("%s", valueString);
                     }
                     else
                     {
-                        stringAction = "^" + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket);
+                        stringAction = "^" + outputStringFunctionOpen(curDates);
                     }
                     break;
                 case ACT_PERS_MULTY:
-                    stringAction = "*" + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + "%";
+                    stringAction = "*" + outputStringFunctionOpen(curDates) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + "%";
                     break;
                 case ACT_PERS_DIV:
-                    stringAction = "/" + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + "%";
+                    stringAction = "/" + outputStringFunctionOpen(curDates) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + "%";
                     break;
                 case ACT_PERS_PLUS:
-                    stringAction = (isPrevBraketOpen == false ? "+" : "") + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + "%";
+                    stringAction = (isPrevBraketOpen == false ? "+" : "") + outputStringFunctionOpen(curDates) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + "%";
                     break;
                 case ACT_PERS_MINUS:
-                    stringAction = "-" + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + "%";
+                    stringAction = "-" + outputStringFunctionOpen(curDates) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + "%";
                     break;
                 case ACT_MULTY:
                     if (isValue == true)
                     {
-                        stringAction = "*" + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket) + (value >= 0 ? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")"));
+                        stringAction = "*" + outputStringFunctionOpen(curDates) + (value >= 0 ? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")"));
                     }
                     else
                     {
-                        stringAction = "*" + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket);
+                        stringAction = "*" + outputStringFunctionOpen(curDates);
                     }
                     break;
                 case ACT_DIV:
                     if (isValue == true)
                     {
-                        stringAction = "/" + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")"));
+                        stringAction = "/" + outputStringFunctionOpen(curDates) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")"));
                     }
                     else
                     {
-                        stringAction = "/" + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket);
+                        stringAction = "/" + outputStringFunctionOpen(curDates);
                     }
                     break;
                 case ACT_PLUS:
                     if (isValue == true)
                     {
-                        stringAction = (isPrevBraketOpen == false ? "+" : "") + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")"));
+                        stringAction = (isPrevBraketOpen == false ? "+" : "") + outputStringFunctionOpen(curDates) + (value >= 0? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")"));
                     }
                     else
                     {
-                        stringAction = (isPrevBraketOpen == false ? "+" : "") + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket);
+                        stringAction = (isPrevBraketOpen == false ? "+" : "") + outputStringFunctionOpen(curDates);
                     }
                     break;
                 case ACT_MINUS:
                     if (isValue == true)
                     {
-                        stringAction = (value >= 0? "-" : "+") + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket) + String.format("%s", valueString);
+                        stringAction = (value >= 0? "-" : "+") + outputStringFunctionOpen(curDates) + String.format("%s", valueString);
                     }
                     else
                     {
-                        stringAction = (value >= 0? "-" : "+") + outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket);
+                        stringAction = (value >= 0? "-" : "+") + outputStringFunctionOpen(curDates);
                     }
                     break;
             }
@@ -603,7 +605,11 @@ public class CalcLogic implements Constants
                 case ACT_PLUS:
                     if (isValue == true)
                     {
-                        stringAction = outputStringFunctionOpen(isBracket, isClose, typeFuncInBracket) + String.format("%s", valueString);
+                        stringAction = outputStringFunctionOpen(curDates) + String.format("%s", valueString);
+                    }
+                    else
+                    {
+                        stringAction = outputStringFunctionOpen(curDates);
                     }
                     break;
             }
