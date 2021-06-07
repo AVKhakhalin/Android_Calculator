@@ -61,7 +61,7 @@ public class CalcLogic implements Constants
         inputNumbers.get(posNumber).setValue(_value);
         inputNumbers.get(posNumber).setIsValue(_isValue);
         inputNumbers.get(posNumber).setAction(_action);
-        inputNumbers.get(posNumber).setPercent(_isPercent);
+        inputNumbers.get(posNumber).setIsPercent(_isPercent);
     }
 
 //    public boolean setNewLevelBracket(boolean isCloseCurBracket /*true - закрываем текущую скобку, false - открываем текущую скобку*/, int _action)
@@ -120,6 +120,50 @@ public class CalcLogic implements Constants
 //            }
 //            else
  //           {
+                if ((inputNumbers.get(curNumber).getIsBracket() == true) && (inputNumbers.get(curNumber).getIsClose() == true))
+                {
+                    if ((inputNumbers.get(curNumber).getAction() == ACT_PERS_MULTY) || ((inputNumbers.get(curNumber).getAction() == ACT_PERS_DIV)) || ((inputNumbers.get(curNumber).getAction() == ACT_PERS_PLUS)) || ((inputNumbers.get(curNumber).getAction() == ACT_PERS_MINUS)))
+                    {
+                        // Определение позиции (positionBracketBegin)
+                        int positionBracketBegin = curNumber;
+                        Dates prevDates;
+                        int counter = 0;
+                        iterInputNumbersForCalc = inputNumbers.listIterator(curNumber);
+                        while (iterInputNumbersForCalc.hasPrevious())
+                        {
+                            prevDates = iterInputNumbersForCalc.previous();
+                            double viewDates = prevDates.getValue();
+                            counter++;
+                            if ((prevDates.getBracketLevel() == curBracketLevel + 1) && (prevDates.getIsBracket() == true) && (prevDates.getIsClose() == false))
+                            {
+                                positionBracketBegin -= counter;
+                                break;
+                            }
+                        }
+                        if (inputNumbers.get(positionBracketBegin).getAction() == ACT_PERS_MULTY)
+                        {
+                            inputNumbers.get(positionBracketBegin).setAction(ACT_MULTY);
+                        }
+                        if (inputNumbers.get(positionBracketBegin).getAction() == ACT_PERS_DIV)
+                        {
+                            inputNumbers.get(positionBracketBegin).setAction(ACT_DIV);
+                        }
+                        if (inputNumbers.get(positionBracketBegin).getAction() == ACT_PERS_PLUS)
+                        {
+                            inputNumbers.get(positionBracketBegin).setAction(ACT_PLUS);
+                        }
+                        if (inputNumbers.get(positionBracketBegin).getAction() == ACT_PERS_MINUS)
+                        {
+                            inputNumbers.get(positionBracketBegin).setAction(ACT_MINUS);
+                        }
+                    }
+
+                    curBracketLevel++;
+                }
+                if ((inputNumbers.get(curNumber).getIsBracket() == true) && (inputNumbers.get(curNumber).getIsClose() == false))
+                {
+                    curBracketLevel--;
+                }
                 inputNumbers.remove(curNumber);
                 curNumber--;
  //           }
@@ -350,10 +394,13 @@ public class CalcLogic implements Constants
         }
         else
         {
-            curBracketLevel++;
-            inputNumbers.get(curNumber).setIsBracket(true);
-            inputNumbers.get(curNumber).setBracketLevel(curBracketLevel);
-            inputNumbers.get(curNumber).setTypeFuncInBracket(typeFuncInBracket);
+            if ((curNumber == 0) || (((inputNumbers.get(curNumber).getTypeFuncInBracket() == FUNC_NO) && (inputNumbers.get(curNumber).getIsValue() == false))))
+            {
+                curBracketLevel++;
+                inputNumbers.get(curNumber).setIsBracket(true);
+                inputNumbers.get(curNumber).setBracketLevel(curBracketLevel);
+                inputNumbers.get(curNumber).setTypeFuncInBracket(typeFuncInBracket);
+            }
         }
         if (maxBracketLevel < curBracketLevel)
         {
@@ -366,24 +413,25 @@ public class CalcLogic implements Constants
     {
         if (curBracketLevel > 0)
         {
-            if ((inputNumbers.get(curNumber).getIsBracket() == false) && (inputNumbers.get(curNumber).getIsClose() == false))
-            {
-                inputNumbers.get(curNumber).setIsBracket(true);
-                inputNumbers.get(curNumber).setIsClose(true);
-                curBracketLevel--;
-            }
-            else
-            {
+//            if ((inputNumbers.get(curNumber).getIsBracket() == false) && (inputNumbers.get(curNumber).getIsClose() == false))
+//            {
+//                inputNumbers.get(curNumber).setIsBracket(true);
+//                inputNumbers.get(curNumber).setIsClose(true);
+//                curBracketLevel--;
+//            }
+//            else
+//            {
                 curBracketLevel--;
                 add(true, true, FUNC_NO, 1, 0d, false, ACT_PLUS, false);
                 curNumber++;
-            }
+//            }
         }
         return createOutput();
     }
 
     public void setNewAction(int action)
     {
+        int positionBracketBegin = curNumber;
         boolean isPrevDatesComplited = false;
         if (curNumber > 0)
         {
@@ -399,11 +447,18 @@ public class CalcLogic implements Constants
             isPrevDatesComplited = true;
         }
 
-        if (inputNumbers.get(curNumber).getIsValue() == false)
+        if ((inputNumbers.get(curNumber).getIsValue() == false) && (inputNumbers.get(curNumber).getIsBracket() == false) && (inputNumbers.get(curNumber).getIsClose() == false))
         {
             if (inputNumbers.size() > 1)
             {
-                inputNumbers.get(curNumber).setAction(action);
+                if ((inputNumbers.get(curNumber).getIsBracket() == true) && (inputNumbers.get(curNumber).getIsClose() == false))
+                {
+                    // Вывести сообщение о том, что процент нельзя применять к открытой скобке, а нужно применять только к простым арифметическим операциям *, /, +, -
+                }
+                else
+                {
+                    inputNumbers.get(curNumber).setAction(action);
+                }
             }
             else
             {
@@ -414,25 +469,59 @@ public class CalcLogic implements Constants
         {
             if (action == ACT_PERS_MULTY)
             {
-                if (inputNumbers.get(curNumber).getAction() == ACT_MULTY)
+                if ((inputNumbers.get(curNumber).getIsBracket() == true) && (inputNumbers.get(curNumber).getIsClose() == false))
                 {
-                    inputNumbers.get(curNumber).setAction(ACT_PERS_MULTY);
-                }
-                else if (inputNumbers.get(curNumber).getAction() == ACT_DIV)
-                {
-                    inputNumbers.get(curNumber).setAction(ACT_PERS_DIV);
-                }
-                else if (inputNumbers.get(curNumber).getAction() == ACT_PLUS)
-                {
-                    inputNumbers.get(curNumber).setAction(ACT_PERS_PLUS);
-                }
-                else if (inputNumbers.get(curNumber).getAction() == ACT_MINUS)
-                {
-                    inputNumbers.get(curNumber).setAction(ACT_PERS_MINUS);
+                    // Вывести сообщение о том, что процент нельзя применять к открытой скобке, а нужно применять только к простым арифметическим операциям *, /, +, -
                 }
                 else
                 {
-                    // Вывести сообщение о том, что процент нужно применять только к простым арифметическим операциям *, /, +, -
+                    if ((inputNumbers.get(curNumber).getIsBracket() == true) && (inputNumbers.get(curNumber).getIsClose() == true))
+                    {
+//                        add(false, false, FUNC_NO, 1, 0d, false, action, true);
+//                        curNumber++;
+                        // Определение позиции (positionBracketBegin)
+                        Dates prevDates;
+                        int counter = 0;
+                        iterInputNumbersForCalc = inputNumbers.listIterator(curNumber);
+                        while (iterInputNumbersForCalc.hasPrevious())
+                        {
+                            prevDates = iterInputNumbersForCalc.previous();
+                            double viewDates = prevDates.getValue();
+                            counter++;
+                            if ((prevDates.getBracketLevel() == curBracketLevel + 1) && (prevDates.getIsBracket() == true) && (prevDates.getIsClose() == false))
+                            {
+//                                positionBracketBegin -= counter - 1;
+                                positionBracketBegin -= counter;
+                                break;
+                            }
+                        }
+                    }
+                    if (inputNumbers.get(positionBracketBegin).getAction() == ACT_MULTY)
+                    {
+                        inputNumbers.get(curNumber).setAction(ACT_PERS_MULTY);
+                        inputNumbers.get(positionBracketBegin).setAction(ACT_PERS_MULTY);
+                    }
+                    else if (inputNumbers.get(positionBracketBegin).getAction() == ACT_DIV)
+                    {
+                        inputNumbers.get(curNumber).setAction(ACT_PERS_DIV);
+                        inputNumbers.get(positionBracketBegin).setAction(ACT_PERS_DIV);
+                    }
+                    else if (inputNumbers.get(positionBracketBegin).getAction() == ACT_PLUS)
+                    {
+                        inputNumbers.get(curNumber).setAction(ACT_PERS_PLUS);
+                        inputNumbers.get(positionBracketBegin).setAction(ACT_PERS_PLUS);
+                    }
+                    else if (inputNumbers.get(positionBracketBegin).getAction() == ACT_MINUS)
+                    {
+                        inputNumbers.get(curNumber).setAction(ACT_PERS_MINUS);
+                        inputNumbers.get(positionBracketBegin).setAction(ACT_PERS_MINUS);
+                    }
+                    else
+                    {
+                        // Вывести сообщение о том, что процент нужно применять только к простым арифметическим операциям *, /, +, -
+                        inputNumbers.get(curNumber).setAction(ACT_PLUS);
+                        inputNumbers.get(curNumber).setIsPercent(false);
+                    }
                 }
             }
             else
@@ -503,7 +592,7 @@ public class CalcLogic implements Constants
         return stringFunction;
     }
 
-    private String outputStringFunctionClose(boolean isBracket, boolean isClose)
+/*    private String outputStringFunctionClose(boolean isBracket, boolean isClose)
     {
         String stringFunction = "";
         if ((isBracket == true) && (isClose == true))
@@ -512,6 +601,7 @@ public class CalcLogic implements Constants
         }
         return stringFunction;
     }
+ */
 
     private String outputStringActionAndFunction(Dates prevDates, Dates curDates)
     {
@@ -520,7 +610,7 @@ public class CalcLogic implements Constants
         int typeFuncInBracket = curDates.getTypeFuncInBracket();
         int bracketLevel = curDates.getBracketLevel();
         int sign = curDates.getSign();
-        double value = curDates.getValue();
+        double value = curDates.getValue() * sign;
         boolean isValue = curDates.getIsValue();
         String valueFract = curDates.getValueFract();
         int action = curDates.getAction();
@@ -538,13 +628,27 @@ public class CalcLogic implements Constants
         String valueString;
         if (valueFract.equals("") == true)
         {
-//            valueString = (numberZapitay == 0 ? String.format("%d.%s", (int) value,  outputStringFunctionClose(isBracket, isClose)) : String.format("%d%s", (int) value,  outputStringFunctionClose(isBracket, isClose)));
-            valueString = (numberZapitay == 0 ? String.format("%d.", (int) value) : String.format("%d", (int) value));
+//            if (sign == 1)
+//            {
+//                valueString = (numberZapitay == 0 ? String.format("%d.%s", (int) value,  outputStringFunctionClose(isBracket, isClose)) : String.format("%d%s", (int) value,  outputStringFunctionClose(isBracket, isClose)));
+                valueString = (numberZapitay == 0 ? String.format("%d.", (int) value) : String.format("%d", (int) value));
+//            }
+//            else
+//            {
+//                valueString = (numberZapitay == 0 ? String.format("(-%d.)", (int) value) : String.format("(-%d)", (int) value));
+//            }
         }
         else
         {
-//            valueString = String.format("%d.%s%s", (int) value, valueFract, outputStringFunctionClose(isBracket, isClose));
-            valueString = String.format("%d.%s", (int) value, valueFract);
+//            if (sign == 1)
+//            {
+//                valueString = String.format("%d.%s%s", (int) value, valueFract, outputStringFunctionClose(isBracket, isClose));
+                valueString = String.format("%d.%s", (int) value, valueFract);
+//            }
+//            else
+//            {
+//                valueString = String.format("(-%d.%s)", (int) value, valueFract);
+//            }
         }
 
         if (isFirst == false)
@@ -561,21 +665,65 @@ public class CalcLogic implements Constants
                     }
                     break;
                 case ACT_PERS_MULTY:
-                    stringAction = "*" + outputStringFunctionOpen(curDates) + (value >= 0 ? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + "%" + (isClose == true ? ")" : "");
+                    if ((isBracket == true) && (isClose == false))
+                    {
+                        stringAction = "*" + outputStringFunctionOpen(curDates);
+                    }
+                    else if ((isBracket == true) && (isClose == true))
+                    {
+                        stringAction = ")%";
+                    }
+                    else
+                    {
+                        stringAction = "*" + outputStringFunctionOpen(curDates) + (value >= 0 ? String.format("%s", valueString) : ("(" + String.format("%s", valueString) + ")")) + "%" + (isClose == true ? ")" : "");
+                    }
                     break;
                 case ACT_PERS_DIV:
-                    stringAction = "/" + outputStringFunctionOpen(curDates) + (value >= 0 ? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + "%" + (isClose == true ? ")" : "");
+                    if ((isBracket == true) && (isClose == false))
+                    {
+                        stringAction = "/" + outputStringFunctionOpen(curDates);
+                    }
+                    else if ((isBracket == true) && (isClose == true))
+                    {
+                        stringAction = ")%";
+                    }
+                    else
+                    {
+                        stringAction = "/" + outputStringFunctionOpen(curDates) + (value >= 0 ? String.format("%s", valueString) : ("(" + String.format("%s", valueString) + ")")) + "%" + (isClose == true ? ")" : "");
+                    }
                     break;
                 case ACT_PERS_PLUS:
-                    stringAction = (isPrevBraketOpen == false ? "+" : "") + outputStringFunctionOpen(curDates) + (value >= 0 ? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + "%" + (isClose == true ? ")" : "");
+                    if ((isBracket == true) && (isClose == false))
+                    {
+                        stringAction = "+" + outputStringFunctionOpen(curDates);
+                    }
+                    else if ((isBracket == true) && (isClose == true))
+                    {
+                        stringAction = ")%";
+                    }
+                    else
+                    {
+                        stringAction = (isPrevBraketOpen == false ? "+" : "") + outputStringFunctionOpen(curDates) + (value >= 0 ? String.format("%s", valueString) : ("(" + String.format("%s", valueString) + ")")) + "%" + (isClose == true ? ")" : "");
+                    }
                     break;
                 case ACT_PERS_MINUS:
-                    stringAction = "-" + outputStringFunctionOpen(curDates) + (value >= 0 ? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + "%" + (isClose == true ? ")" : "");
+                    if ((isBracket == true) && (isClose == false))
+                    {
+                        stringAction = "-" + outputStringFunctionOpen(curDates);
+                    }
+                    else if ((isBracket == true) && (isClose == true))
+                    {
+                        stringAction = ")%";
+                    }
+                    else
+                    {
+                        stringAction = "-" + outputStringFunctionOpen(curDates) + (value >= 0 ? String.format("%s", valueString) : ("(" + String.format("%s", valueString) + ")")) + "%" + (isClose == true ? ")" : "");
+                    }
                     break;
                 case ACT_MULTY:
                     if (isValue == true)
                     {
-                        stringAction = "*" + outputStringFunctionOpen(curDates) + (value >= 0 ? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + (isClose == true ? ")" : "");
+                        stringAction = "*" + outputStringFunctionOpen(curDates) + (value >= 0 ? String.format("%s", valueString) : ("(" + String.format("%s", valueString) + ")")) + (isClose == true ? ")" : "");
                     }
                     else
                     {
@@ -585,7 +733,7 @@ public class CalcLogic implements Constants
                 case ACT_DIV:
                     if (isValue == true)
                     {
-                        stringAction = "/" + outputStringFunctionOpen(curDates) + (value >= 0 ? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + (isClose == true ? ")" : "");
+                        stringAction = "/" + outputStringFunctionOpen(curDates) + (value >= 0 ? String.format("%s", valueString) : ("(" + String.format("%s", valueString) + ")")) + (isClose == true ? ")" : "");
                     }
                     else
                     {
@@ -595,7 +743,7 @@ public class CalcLogic implements Constants
                 case ACT_PLUS:
                     if (isValue == true)
                     {
-                        stringAction = (isPrevBraketOpen == false ? "+" : "") + outputStringFunctionOpen(curDates) + (value >= 0 ? String.format("%s", valueString) : ("(-" + String.format("%s", valueString) + ")")) + (isClose == true ? ")" : "");
+                        stringAction = (isPrevBraketOpen == false ? "+" : "") + outputStringFunctionOpen(curDates) + (value >= 0 ? String.format("%s", valueString) : ("(" + String.format("%s", valueString) + ")")) + (isClose == true ? ")" : "");
                     }
                     else
                     {

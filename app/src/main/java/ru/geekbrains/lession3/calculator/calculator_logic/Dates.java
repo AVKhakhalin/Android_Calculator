@@ -146,7 +146,7 @@ public class Dates implements Cloneable {
         action = _action;
     }
 
-    public void setPercent(boolean percent) {
+    public void setIsPercent(boolean percent) {
         isPercent = percent;
     }
 

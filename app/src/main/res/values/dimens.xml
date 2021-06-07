@@ -7,7 +7,7 @@
     <dimen name="StandartButtonNumber_height">65dp</dimen>
     <dimen name="StandartButtonAction_width">45dp</dimen>
     <dimen name="StandartButtonAction_height">45dp</dimen>
-    <dimen name="textButtonNumbers_size">25sp</dimen>
+    <dimen name="textButtonNumbers_size">32sp</dimen>
     <dimen name="textButtonActions_size">19sp</dimen>
     <dimen name="ButtonsRight_margin">0dp</dimen>
     <dimen name="ResultHistoryText_size">24sp</dimen>

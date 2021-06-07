@@ -144,9 +144,9 @@
         style="@style/actions_style"
         android:text="@string/_zapitay"
         app:backgroundTint="@null"
-        app:layout_constraintTop_toBottomOf="@id/_0"
-        app:layout_constraintStart_toEndOf="@id/_minus"
-        app:layout_constraintEnd_toStartOf="@id/_1"/>
+        app:layout_constraintTop_toBottomOf="@id/_bracket_open"
+        app:layout_constraintEnd_toEndOf="@id/_stepen"
+        app:layout_constraintStart_toEndOf="@id/_plus_minus"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/_multiply"
@@ -266,7 +266,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/_RESULT"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/_RESULT" >
+        app:layout_constraintBottom_toBottomOf="@id/_RESULT"
+        app:layout_constraintEnd_toStartOf="@id/_stepen" >
 
         <TextView
             android:id="@+id/_inputed_history_text"

@@ -144,9 +144,9 @@
         style="@style/actions_style"
         android:text="@string/_zapitay"
         app:backgroundTint="@null"
-        app:layout_constraintTop_toBottomOf="@id/_0"
-        app:layout_constraintStart_toEndOf="@id/_minus"
-        app:layout_constraintEnd_toStartOf="@id/_1"/>
+        app:layout_constraintTop_toBottomOf="@id/_bracket_open"
+        app:layout_constraintEnd_toEndOf="@id/_stepen"
+        app:layout_constraintStart_toEndOf="@id/_plus_minus" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/_multiply"
@@ -266,7 +266,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/_backspace_one"
-        app:layout_constraintStart_toStartOf="parent" >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
 
         <TextView
             android:id="@+id/_inputed_history_text"
@@ -276,7 +277,7 @@
             android:text="@string/InputHistory_text"
             android:paddingLeft="@dimen/padding_output_text"
             android:ems="13"
-            android:textColor="@color/BackgroundInputHistory_color"
+            android:textColor="@color/red_erase"
             android:background="@drawable/background_input_history"
             android:layout_marginLeft="@dimen/InputHistoryMargin_left"/>
     </HorizontalScrollView>
