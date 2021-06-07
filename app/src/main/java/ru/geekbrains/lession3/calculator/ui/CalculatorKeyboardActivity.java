@@ -108,7 +108,7 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
             case R.id._bracket_open:
 //                calcLogic.setNewFunction(FUNC_NO);
 //                Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.setNewFunction(FUNC_NO)), Toast.LENGTH_SHORT).show();
-                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.setNewFunction(FUNC_NO)));
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.setNewFunction(FUNCTIONS.FUNC_NO)));
 //                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s%s", inputedHistoryText.getText(), "("));
                 break;
             case R.id._bracket_close:
@@ -130,23 +130,23 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
 //                }
                 break;
             case R.id._divide:
-                calcLogic.setNewAction(ACT_DIV);
+                calcLogic.setNewAction(ACTIONS.ACT_DIV);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
                 break;
             case R.id._minus:
-                calcLogic.setNewAction(ACT_MINUS);
+                calcLogic.setNewAction(ACTIONS.ACT_MINUS);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
                 break;
             case R.id._multiply:
-                calcLogic.setNewAction(ACT_MULTY);
+                calcLogic.setNewAction(ACTIONS.ACT_MULTY);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
                 break;
             case R.id._plus:
-                calcLogic.setNewAction(ACT_PLUS);
+                calcLogic.setNewAction(ACTIONS.ACT_PLUS);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
                 break;
             case R.id._percent:
-                calcLogic.setNewAction(ACT_PERS_MULTY); // Задаётся универсальное значение ACT_PERS_MULTY и оно уточняется в методе setNewAction
+                calcLogic.setNewAction(ACTIONS.ACT_PERS_MULTY); // Задаётся универсальное значение ACT_PERS_MULTY и оно уточняется в методе setNewAction
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
                 break;
             case R.id._plus_minus:
@@ -154,11 +154,11 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
                 break;
             case R.id._stepen:
-                calcLogic.setNewAction(ACT_STEP);
+                calcLogic.setNewAction(ACTIONS.ACT_STEP);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
                 break;
             case R.id._sqrt:
-                calcLogic.setNewFunction(FUNC_SQRT);
+                calcLogic.setNewFunction(FUNCTIONS.FUNC_SQRT);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
                 break;
             default:

@@ -1,27 +1,27 @@
 package ru.geekbrains.lession3.calculator.calculator_logic;
 
 // Класс для хранения единичных данных, используется в списке
-public class Dates implements Cloneable {
+public class Dates implements Constants {
     private boolean isBracket;      // является ли данный элемент скобкой: true = да; false = нет;
                                     // открывающаяся скобка является пустым объектом, в неё потом размещается результат вычислений всех операций в данной скобке; пустой объект имеет вначале value = 0d;
                                     // закрывающая скобка находится в самом последнем объекте данной скобки; т.е. последний объект в скобке имеет свойство isBracket = true, что говорит о том, что скобка закрылась
     private boolean isClose;   // признак закрывающей скобки; у последнего элемента в скобке будет isClose = true, а у остальных элементов в скобке isClose = false
-    private int typeFuncInBracket;  // тип функции, которую нужно применить ко все скобке; все типы фукнции описаны в интерфейсе Constants
+    private FUNCTIONS typeFuncInBracket;  // тип функции, которую нужно применить ко все скобке; все типы фукнции описаны в интерфейсе Constants
     private int bracketLevel;  // уровень скобки: чем выше уровень, тем более глубоко вложена данная скобка в другие скобки; начальный уровень - 0
     private int sign;               // знак числа: либо +1, либо -1; по-умолчанию, значение +1
     private double value;      // числовое значение
     private boolean isValue;        // признак задания числа; по-умолчанию, все числа задаются 0d; если хотя бы одну цифру в число внесли, то isValue = true; по-умолчанию isValue = false
     private String valueFract; // дробная часть величины value для удобного представления числа в поле inputedHistoryText
-    private int action;        // производимые действия над числом (по-умолчанию стоит сумма ACT_PLUS):
-                                    // ACT_STEP = 1 - возведение в степень (ACT_STEP);
-                                    // ACT_PERS_MULTY = 2 - вычисление произведения на процент от числа (ACT_PERS_MULTY);
-                                    // ACT_PERS_DIV = 3 - вычисление деления на процент от числа (ACT_PERS_DIV);
-                                    // ACT_PERS_PLUS = 4 - вычисление сложения с процентом от числа (ACT_PERS_PLUS);
-                                    // ACT_PERS_MINUS = 5 - вычисление вычистания процента от числа (ACT_PERS_MINUS);
-                                    // ACT_MULTY = 6 - умножение (ACT_MULTY);
-                                    // int ACT_DIV = 7 - деление (ACT_DIV);
-                                    // ACT_PLUS = 8 - сложение (ACT_PLUS);
-                                    // ACT_MINUS = 9 - вычитание (ACT_MINUS)
+    private ACTIONS action;        // производимые действия над числом (по-умолчанию стоит сумма ACT_PLUS):
+                                    // ACT_STEP         - возведение в степень (ACT_STEP);
+                                    // ACT_PERS_MULTY   - вычисление произведения на процент от числа (ACT_PERS_MULTY);
+                                    // ACT_PERS_DIV     - вычисление деления на процент от числа (ACT_PERS_DIV);
+                                    // ACT_PERS_MINUS   - вычисление вычистания процента от числа (ACT_PERS_MINUS);
+                                    // ACT_PERS_PLUS    - вычисление сложения с процентом от числа (ACT_PERS_PLUS);
+                                    // ACT_MULTY        - умножение (ACT_MULTY);
+                                    // ACT_DIV          - деление (ACT_DIV);
+                                    // ACT_MINUS        - вычитание (ACT_MINUS)
+                                    // ACT_PLUS         - сложение (ACT_PLUS);
     private boolean isPercent; // является ли данный элемент процентом: true = да; false = нет
     private int numberZapitay;      // количество разрядов после запятой; по-умолчанию -1, что означает, что разрядов нет;
                                     // при нажатии на кнопку с запятой, к данному числу прибавляется единица и оно становится равным нулю;
@@ -30,7 +30,7 @@ public class Dates implements Cloneable {
                                         // если один раз нажать на запятую, то turnOffZapitay = false и начнут вводиться цифры после запятой;
                                         // если ещё раз нажать на запятую, то turnOffZapitay = false опять начнут вводиться цифры только в целую часть числа и т.д.
 
-    Dates(boolean _isBracket, boolean _isClose, int _typeFuncInBracket, int _bracketLevel, int _sign, double _value, boolean _isValue, int _action, boolean _isPercent) {
+    Dates(boolean _isBracket, boolean _isClose, FUNCTIONS _typeFuncInBracket, int _bracketLevel, int _sign, double _value, boolean _isValue, ACTIONS _action, boolean _isPercent) {
         isBracket = _isBracket;
         isClose = _isClose;
         typeFuncInBracket = _typeFuncInBracket;
@@ -45,7 +45,7 @@ public class Dates implements Cloneable {
             turnOffZapitay = true;
     }
 
-    Dates(boolean _isBracket, boolean _isClose, int _typeFuncInBracket, int _bracketLevel, int _sign, double _value, boolean _isValue, String _valueFract, int _action, boolean _isPercent, int _numberZapitay, boolean _turnOffZapitay) {
+    Dates(boolean _isBracket, boolean _isClose, FUNCTIONS _typeFuncInBracket, int _bracketLevel, int _sign, double _value, boolean _isValue, String _valueFract, ACTIONS _action, boolean _isPercent, int _numberZapitay, boolean _turnOffZapitay) {
         isBracket = _isBracket;
         isClose = _isClose;
         typeFuncInBracket = _typeFuncInBracket;
@@ -68,7 +68,7 @@ public class Dates implements Cloneable {
         return isClose;
     }
 
-    public int getTypeFuncInBracket() {
+    public FUNCTIONS getTypeFuncInBracket() {
         return typeFuncInBracket;
     }
 
@@ -92,7 +92,7 @@ public class Dates implements Cloneable {
         return valueFract;
     }
 
-    public int getAction() {
+    public ACTIONS getAction() {
         return action;
     }
 
@@ -118,7 +118,7 @@ public class Dates implements Cloneable {
         isClose = close;
     }
 
-    public void setTypeFuncInBracket(int _typeFuncInBracket) {
+    public void setTypeFuncInBracket(FUNCTIONS _typeFuncInBracket) {
         typeFuncInBracket = _typeFuncInBracket;
     }
 
@@ -142,7 +142,7 @@ public class Dates implements Cloneable {
         valueFract = _valueFract;
     }
 
-    public void setAction(int _action) {
+    public void setAction(ACTIONS _action) {
         action = _action;
     }
 
