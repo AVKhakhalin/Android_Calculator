@@ -48,7 +48,8 @@ public class CalcLogic implements Constants
 
     public void add(boolean _isBracket, boolean _isClose, int _typeFuncInBracket, int _sign, double _value, boolean _isValue, int _action, boolean _isPercent)
     {
-        inputNumbers.add(new Dates(_isBracket, _isClose, _typeFuncInBracket, curBracketLevel , _sign, _value, _isValue, _action, _isPercent));
+        inputNumbers.add(new Dates(_isBracket, _isClose, _typeFuncInBracket, curBracketLevel, _sign, _value, _isValue, _action, _isPercent));
+        int view = curBracketLevel;
     }
 
     public void set(int posNumber, boolean _isBracket, boolean _isClose, int _typeFuncInBracket, int _bracketLevel, int _sign, double _value, boolean _isValue, int _action, boolean _isPercent)
@@ -159,6 +160,10 @@ public class CalcLogic implements Constants
                     }
 
                     curBracketLevel++;
+                    if (maxBracketLevel < curBracketLevel)
+                    {
+                        maxBracketLevel = curBracketLevel;
+                    }
                 }
                 if ((inputNumbers.get(curNumber).getIsBracket() == true) && (inputNumbers.get(curNumber).getIsClose() == false))
                 {
@@ -194,17 +199,18 @@ public class CalcLogic implements Constants
     {
         int counter = -1;
         int startBracketIndex = -1;
-        int maxBracketLevel = curBracketLevel;
+//        int maxBracketLevel = curBracketLevel;
         double tempBracketValue = 0d;
         double result = 0d;
         Dates curDates;
         Dates prevDates;
 
-        inputNumbersForBracketCalc = copyLinkedList(inputNumbers); // Создание дубликата класса с числами для обработки со скобками
+        inputNumbersForBracketCalc = copyLinkedList(inputNumbers); // Создание дубликата класса с числами для обработки выражения со скобками
         // Здесь происходит обработка всех скобок
         for (int i = maxBracketLevel; i > 0; i--)
         {
             iterInputNumbersForCalc = inputNumbersForBracketCalc.listIterator();
+            counter = -1;
             while (iterInputNumbersForCalc.hasNext())
             {
                 counter++;
@@ -212,42 +218,46 @@ public class CalcLogic implements Constants
                 if (curDates.getBracketLevel() == i)
                 {
                     startBracketIndex = counter; // Не забыть вернуть этой переменной значение -1, когда встретим закрывающую скобку
-                }
-                inputNumbersForBaseCalc = new LinkedList<>();
-                while (iterInputNumbersForCalc.hasNext())
-                {
-                    curDates = iterInputNumbersForCalc.next();
-                    if ((curDates.getBracketLevel() == i) && (curDates.getIsClose() == false))
+
+                    inputNumbersForBaseCalc = new LinkedList<>();
+                    while (iterInputNumbersForCalc.hasNext())
                     {
-                        inputNumbersForBaseCalc.add(new Dates(curDates.getIsBracket(), curDates.getIsClose(), curDates.getTypeFuncInBracket(), curDates.getBracketLevel(), curDates.getSign(), curDates.getValue(), curDates.getIsValue(), curDates.getValueFract(), curDates.getAction(), curDates.getIsPercent(), curDates.getNumberZapitay(), curDates.getTurnOffZapitay()));
-                        iterInputNumbersForCalc.remove();
-                    }
-                    else if ((curDates.getBracketLevel() == i) && (curDates.getIsClose() == true))
-                    {
-                        inputNumbersForBaseCalc.add(new Dates(curDates.getIsBracket(), curDates.getIsClose(), curDates.getTypeFuncInBracket(), curDates.getBracketLevel(), curDates.getSign(), curDates.getValue(), curDates.getIsValue(), curDates.getValueFract(), curDates.getAction(), curDates.getIsPercent(), curDates.getNumberZapitay(), curDates.getTurnOffZapitay()));
-                        iterInputNumbersForCalc.remove();
-                        break;
-                    }
-                    else
-                    {
-                        if (iterInputNumbersForCalc.hasPrevious() == true)
+                        curDates = iterInputNumbersForCalc.next();
+                        int viewParam1 = curDates.getBracketLevel();
+                        boolean viewParam2 = curDates.getIsClose();
+                        if ((curDates.getBracketLevel() == i) && (curDates.getIsClose() == false))
                         {
-                            iterInputNumbersForCalc.previous();
+                            inputNumbersForBaseCalc.add(new Dates(curDates.getIsBracket(), curDates.getIsClose(), curDates.getTypeFuncInBracket(), curDates.getBracketLevel(), curDates.getSign(), curDates.getValue(), curDates.getIsValue(), curDates.getValueFract(), curDates.getAction(), curDates.getIsPercent(), curDates.getNumberZapitay(), curDates.getTurnOffZapitay()));
+                            iterInputNumbersForCalc.remove();
                         }
-                        break;
+                        else if ((curDates.getBracketLevel() == i) && (curDates.getIsClose() == true))
+                        {
+    //                        inputNumbersForBaseCalc.add(new Dates(curDates.getIsBracket(), curDates.getIsClose(), curDates.getTypeFuncInBracket(), curDates.getBracketLevel(), curDates.getSign(), curDates.getValue(), curDates.getIsValue(), curDates.getValueFract(), curDates.getAction(), curDates.getIsPercent(), curDates.getNumberZapitay(), curDates.getTurnOffZapitay()));
+                            iterInputNumbersForCalc.remove();
+                            break;
+                        }
+                        else
+                        {
+                            if (iterInputNumbersForCalc.hasPrevious() == true)
+                            {
+                                iterInputNumbersForCalc.previous();
+                            }
+                            break;
+                        }
                     }
+                    result = moveOnWithoutBracket(inputNumbersForBaseCalc);
+                    inputNumbersForBracketCalc.get(startBracketIndex).setValue(doFunction(result, inputNumbersForBracketCalc.get(startBracketIndex).getTypeFuncInBracket()));
+                    inputNumbersForBracketCalc.get(startBracketIndex).setTypeFuncInBracket(FUNC_NO);
+                    inputNumbersForBracketCalc.get(startBracketIndex).setIsValue(true);
+                    inputNumbersForBracketCalc.get(startBracketIndex).setBracketLevel(inputNumbersForBracketCalc.get(startBracketIndex).getBracketLevel() - 1);
+//                    startBracketIndex = -1;
                 }
-                result = moveOnWithoutBracket(inputNumbersForBaseCalc);
-                inputNumbersForBracketCalc.get(startBracketIndex).setValue(doFunction(result, inputNumbersForBracketCalc.get(startBracketIndex).getTypeFuncInBracket()));
-                inputNumbersForBracketCalc.get(startBracketIndex).setTypeFuncInBracket(FUNC_NO);
-                inputNumbersForBracketCalc.get(startBracketIndex).setIsValue(true);
-                inputNumbersForBracketCalc.get(startBracketIndex).setBracketLevel(inputNumbersForBracketCalc.get(startBracketIndex).getBracketLevel() - 1);
-                startBracketIndex = -1;
             }
         }
 
         // Здесь происходит обработка списка, в котором не осталось ни одной скобки
-        inputNumbersForBaseCalc = copyLinkedList(inputNumbers); // Создание дубликата класса с числами для обработки без скобок
+//        inputNumbersForBaseCalc = copyLinkedList(inputNumbers); // Создание дубликата класса с числами для обработки без скобок
+        inputNumbersForBaseCalc = copyLinkedList(inputNumbersForBracketCalc); // Создание дубликата класса с числами для обработки без скобок
         result = moveOnWithoutBracket(inputNumbersForBaseCalc);
 
         return result;
@@ -394,7 +404,8 @@ public class CalcLogic implements Constants
         }
         else
         {
-            if ((curNumber == 0) || (((inputNumbers.get(curNumber).getTypeFuncInBracket() == FUNC_NO) && (inputNumbers.get(curNumber).getIsValue() == false))))
+//            if ((curNumber == 0) || (((inputNumbers.get(curNumber).getTypeFuncInBracket() == FUNC_NO) && (inputNumbers.get(curNumber).getIsValue() == false))))
+            if ((inputNumbers.get(curNumber).getTypeFuncInBracket() == FUNC_NO) && (inputNumbers.get(curNumber).getIsValue() == false))
             {
                 curBracketLevel++;
                 inputNumbers.get(curNumber).setIsBracket(true);
@@ -421,8 +432,8 @@ public class CalcLogic implements Constants
 //            }
 //            else
 //            {
-                curBracketLevel--;
                 add(true, true, FUNC_NO, 1, 0d, false, ACT_PLUS, false);
+                curBracketLevel--;
                 curNumber++;
 //            }
         }

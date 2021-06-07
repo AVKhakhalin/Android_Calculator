@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="numbers_style">
+    <style name="numbers_style" xmlns:app="http://schemas.android.com/apk/res-auto">
         <item name="android:layout_width">@dimen/StandartButtonNumber_width</item>
         <item name="android:layout_height">@dimen/StandartButtonNumber_height</item>
         <item name="android:textSize">@dimen/textButtonNumbers_size</item>
