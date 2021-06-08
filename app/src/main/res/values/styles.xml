@@ -8,6 +8,9 @@
         <item name="android:textColor">@color/BackgroundInputHistory_color</item>
         <item name="android:padding">@dimen/text_in_button_padding</item>
         <item name="android:background">@drawable/buttons_with_numbers_mg</item>
+        <item name="backgroundTint">@null</item>
+        <item name="layout_constraintCircle">@id/_RESULT</item>
+        <item name="layout_constraintCircleRadius">@dimen/ButtonCircle_radius</item>
     </style>
     <style name="actions_style">
         <item name="android:layout_width">@dimen/StandartButtonAction_width</item>
