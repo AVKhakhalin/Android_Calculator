@@ -75,7 +75,7 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
                 break;
             case R.id._equal:
-                outputResultText.setText(String.format(Locale.getDefault(), "%f", calcLogic.calculate()));
+                outputResultText.setText(String.format(Locale.getDefault(), "%e", calcLogic.calculate()));
                 break;
             case R.id._zapitay:
                 calcLogic.setCurZapitay();

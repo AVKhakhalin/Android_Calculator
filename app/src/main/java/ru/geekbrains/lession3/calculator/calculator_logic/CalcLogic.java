@@ -38,29 +38,30 @@ public class CalcLogic implements Constants
         double realPartValue = 0d;
         if (inputNumbers.get(curNumber).getTurnOffZapitay() == false)
         {
-//            inputNumbers.get(curNumber).setRealPartValue(newNumeral);
+            inputNumbers.get(curNumber).setRealPartValue(newNumeral);
             inputNumbers.get(curNumber).setNumberZapitay(inputNumbers.get(curNumber).getNumberZapitay() + 1);
-            set(curNumber, inputNumbers.get(curNumber).getIsBracket(), false, FUNCTIONS.FUNC_NO, curBracketLevel, inputNumbers.get(curNumber).getSign(), inputNumbers.get(curNumber).getValue() + Math.pow(10, -inputNumbers.get(curNumber).getNumberZapitay()) * (double) (newNumeral), true, inputNumbers.get(curNumber).getAction(), inputNumbers.get(curNumber).getIsPercent());
-//            if (inputNumbers.get(curNumber).getIntegerPartValue().length() > 0)
-//            {
-//                intPartValue = Double.parseDouble(inputNumbers.get(curNumber).getIntegerPartValue());
-//            }
-//            realPartValue = Double.parseDouble(inputNumbers.get(curNumber).getRealPartValue()) * Math.pow(10, -1 * inputNumbers.get(curNumber).getRealPartValue().length());
+//            set(curNumber, inputNumbers.get(curNumber).getIsBracket(), false, FUNCTIONS.FUNC_NO, curBracketLevel, inputNumbers.get(curNumber).getSign(), inputNumbers.get(curNumber).getValue() + Math.pow(10, -inputNumbers.get(curNumber).getNumberZapitay()) * (double) (newNumeral), true, inputNumbers.get(curNumber).getAction(), inputNumbers.get(curNumber).getIsPercent());
+            if (inputNumbers.get(curNumber).getIntegerPartValue().length() > 0)
+            {
+                intPartValue = Double.parseDouble(inputNumbers.get(curNumber).getIntegerPartValue());
+            }
+            realPartValue = Double.parseDouble(inputNumbers.get(curNumber).getRealPartValue()) * Math.pow(10, -1 * inputNumbers.get(curNumber).getRealPartValue().length());
 //            set(curNumber, inputNumbers.get(curNumber).getIsBracket(), false, FUNCTIONS.FUNC_NO, curBracketLevel, inputNumbers.get(curNumber).getSign(), intPartValue + realPartValue, true, inputNumbers.get(curNumber).getAction(), inputNumbers.get(curNumber).getIsPercent());
-            inputNumbers.get(curNumber).setValueFract(inputNumbers.get(curNumber).getValueFract() + String.format("%d", newNumeral));
-//            inputNumbers.get(curNumber).setValueFract(inputNumbers.get(curNumber).getRealPartValue());
+//            inputNumbers.get(curNumber).setValueFract(inputNumbers.get(curNumber).getValueFract() + String.format("%d", newNumeral));
+            inputNumbers.get(curNumber).setValueFract(inputNumbers.get(curNumber).getRealPartValue());
         }
         else
         {
-//            inputNumbers.get(curNumber).setIntegerPartValue(newNumeral);
-//            intPartValue = Double.parseDouble(inputNumbers.get(curNumber).getIntegerPartValue());
-//            if (inputNumbers.get(curNumber).getRealPartValue().length() > 0)
-//            {
-//                realPartValue = Double.parseDouble(inputNumbers.get(curNumber).getRealPartValue()) * Math.pow(10, -1 * inputNumbers.get(curNumber).getRealPartValue().length());
-//            }
-            set(curNumber, inputNumbers.get(curNumber).getIsBracket(), false, FUNCTIONS.FUNC_NO, curBracketLevel, inputNumbers.get(curNumber).getSign(), (int) inputNumbers.get(curNumber).getValue() * 10 + (double) (newNumeral) + (inputNumbers.get(curNumber).getValue() - (int) inputNumbers.get(curNumber).getValue()), true, inputNumbers.get(curNumber).getAction(), inputNumbers.get(curNumber).getIsPercent());
+            inputNumbers.get(curNumber).setIntegerPartValue(newNumeral);
+            intPartValue = Double.parseDouble(inputNumbers.get(curNumber).getIntegerPartValue());
+            if (inputNumbers.get(curNumber).getRealPartValue().length() > 0)
+            {
+                realPartValue = Double.parseDouble(inputNumbers.get(curNumber).getRealPartValue()) * Math.pow(10, -1 * inputNumbers.get(curNumber).getRealPartValue().length());
+            }
+//            set(curNumber, inputNumbers.get(curNumber).getIsBracket(), false, FUNCTIONS.FUNC_NO, curBracketLevel, inputNumbers.get(curNumber).getSign(), (int) inputNumbers.get(curNumber).getValue() * 10 + (double) (newNumeral) + (inputNumbers.get(curNumber).getValue() - (int) inputNumbers.get(curNumber).getValue()), true, inputNumbers.get(curNumber).getAction(), inputNumbers.get(curNumber).getIsPercent());
 //            set(curNumber, inputNumbers.get(curNumber).getIsBracket(), false, FUNCTIONS.FUNC_NO, curBracketLevel, inputNumbers.get(curNumber).getSign(), intPartValue + realPartValue, true, inputNumbers.get(curNumber).getAction(), inputNumbers.get(curNumber).getIsPercent());
         }
+        set(curNumber, inputNumbers.get(curNumber).getIsBracket(), false, FUNCTIONS.FUNC_NO, curBracketLevel, inputNumbers.get(curNumber).getSign(), intPartValue + realPartValue, true, inputNumbers.get(curNumber).getAction(), inputNumbers.get(curNumber).getIsPercent());
         return inputNumbers.get(curNumber).getValue();
     }
 
@@ -539,6 +540,7 @@ public class CalcLogic implements Constants
         }
     }
 
+    // Основной мето для вывода информации в историю введённых чисел, действий и функций
     public String createOutput()
     {
         String outputString = "";

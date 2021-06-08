@@ -170,7 +170,7 @@ public class Dates implements Constants {
 
     public void setRealPartValue(Integer numeral)
     {
-        integerPartValue.add(numeral);
+        realPartValue.add(numeral);
     }
     public void setIsValue(boolean _isValue) {
         isValue = _isValue;
