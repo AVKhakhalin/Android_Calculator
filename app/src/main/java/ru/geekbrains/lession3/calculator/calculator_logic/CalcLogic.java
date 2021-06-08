@@ -35,28 +35,35 @@ public class CalcLogic implements Constants
             add(false, false, FUNCTIONS.FUNC_NO, 1, 0d, false, ACTIONS.ACT_PLUS, false);
             curNumber++;
         }
-        double intPartValue = 0d;
-        double realPartValue = 0d;
-        if (inputNumbers.get(curNumber).getTurnOffZapitay() == false)
+        if ((inputNumbers.get(curNumber).getIntegerPartValue().length() == 0) && (newNumeral == 0) && (pressedZapitay == false))
         {
-            inputNumbers.get(curNumber).setRealPartValue(newNumeral);
-            inputNumbers.get(curNumber).setNumberZapitay(inputNumbers.get(curNumber).getNumberZapitay() + 1);
-            if (inputNumbers.get(curNumber).getIntegerPartValue().length() > 0)
-            {
-                intPartValue = Double.parseDouble(inputNumbers.get(curNumber).getIntegerPartValue());
-            }
-            realPartValue = Double.parseDouble(inputNumbers.get(curNumber).getRealPartValue()) * Math.pow(10, -1 * inputNumbers.get(curNumber).getRealPartValue().length());
+            // Показать уведомление о том, что целая часть числа не может начинаться с 0
         }
         else
         {
-            inputNumbers.get(curNumber).setIntegerPartValue(newNumeral);
-            intPartValue = Double.parseDouble(inputNumbers.get(curNumber).getIntegerPartValue());
-            if (inputNumbers.get(curNumber).getRealPartValue().length() > 0)
+            double intPartValue = 0d;
+            double realPartValue = 0d;
+            if (pressedZapitay == true)
             {
+                inputNumbers.get(curNumber).setRealPartValue(newNumeral);
+                inputNumbers.get(curNumber).setNumberZapitay(inputNumbers.get(curNumber).getNumberZapitay() + 1);
+                if (inputNumbers.get(curNumber).getIntegerPartValue().length() > 0)
+                {
+                    intPartValue = Double.parseDouble(inputNumbers.get(curNumber).getIntegerPartValue());
+                }
                 realPartValue = Double.parseDouble(inputNumbers.get(curNumber).getRealPartValue()) * Math.pow(10, -1 * inputNumbers.get(curNumber).getRealPartValue().length());
             }
+            else
+            {
+                inputNumbers.get(curNumber).setIntegerPartValue(newNumeral);
+                intPartValue = Double.parseDouble(inputNumbers.get(curNumber).getIntegerPartValue());
+                if (inputNumbers.get(curNumber).getRealPartValue().length() > 0)
+                {
+                    realPartValue = Double.parseDouble(inputNumbers.get(curNumber).getRealPartValue()) * Math.pow(10, -1 * inputNumbers.get(curNumber).getRealPartValue().length());
+                }
+            }
+            set(curNumber, inputNumbers.get(curNumber).getIsBracket(), false, FUNCTIONS.FUNC_NO, curBracketLevel, inputNumbers.get(curNumber).getSign(), intPartValue + realPartValue, true, inputNumbers.get(curNumber).getAction(), inputNumbers.get(curNumber).getIsPercent());
         }
-        set(curNumber, inputNumbers.get(curNumber).getIsBracket(), false, FUNCTIONS.FUNC_NO, curBracketLevel, inputNumbers.get(curNumber).getSign(), intPartValue + realPartValue, true, inputNumbers.get(curNumber).getAction(), inputNumbers.get(curNumber).getIsPercent());
         return inputNumbers.get(curNumber).getValue();
     }
 
