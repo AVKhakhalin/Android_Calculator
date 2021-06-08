@@ -16,7 +16,6 @@ public class Dates implements Constants {
     private LinkedList<Integer> integerPartValue;   // Список цифр целой части вводимого числа
     private LinkedList<Integer> realPartValue;      // Список цифр вещественной части вводимого числа
     private boolean isValue;        // признак задания числа; по-умолчанию, все числа задаются 0d; если хотя бы одну цифру в число внесли, то isValue = true; по-умолчанию isValue = false
-    private String valueFract; // дробная часть величины value для удобного представления числа в поле inputedHistoryText
     private ACTIONS action;        // производимые действия над числом (по-умолчанию стоит сумма ACT_PLUS):
                                    // ACT_STEP         - возведение в степень (ACT_STEP);
                                    // ACT_PERS_MULTY   - вычисление произведения на процент от числа (ACT_PERS_MULTY);
@@ -45,14 +44,13 @@ public class Dates implements Constants {
         integerPartValue = new LinkedList<>();
         realPartValue = new LinkedList<>();
         isValue = _isValue;
-        valueFract = "";
         action = _action;
         isPercent = _isPercent;
         numberZapitay = -1;
         turnOffZapitay = true;
     }
 
-    Dates(boolean _isBracket, boolean _isClose, FUNCTIONS _typeFuncInBracket, int _bracketLevel, int _sign, double _value, boolean _isValue, String _valueFract, ACTIONS _action, boolean _isPercent, int _numberZapitay, boolean _turnOffZapitay) {
+    Dates(boolean _isBracket, boolean _isClose, FUNCTIONS _typeFuncInBracket, int _bracketLevel, int _sign, double _value, boolean _isValue, ACTIONS _action, boolean _isPercent, int _numberZapitay, boolean _turnOffZapitay) {
         isBracket = _isBracket;
         isClose = _isClose;
         typeFuncInBracket = _typeFuncInBracket;
@@ -62,7 +60,6 @@ public class Dates implements Constants {
         integerPartValue = new LinkedList<>();
         realPartValue = new LinkedList<>();
         isValue = _isValue;
-        valueFract = _valueFract;
         action = _action;
         isPercent = _isPercent;
         numberZapitay = _numberZapitay;
@@ -117,10 +114,6 @@ public class Dates implements Constants {
         return isValue;
     }
 
-    public String getValueFract() {
-        return valueFract;
-    }
-
     public ACTIONS getAction() {
         return action;
     }
@@ -172,12 +165,19 @@ public class Dates implements Constants {
     {
         realPartValue.add(numeral);
     }
-    public void setIsValue(boolean _isValue) {
-        isValue = _isValue;
+
+    public void setIntegerPartValueDecreaseOne()
+    {
+        integerPartValue.removeLast();
     }
 
-    public void setValueFract(String _valueFract) {
-        valueFract = _valueFract;
+    public void setRealPartValueDecreaseOne()
+    {
+        realPartValue.removeLast();
+    }
+
+    public void setIsValue(boolean _isValue) {
+        isValue = _isValue;
     }
 
     public void setAction(ACTIONS _action) {

@@ -91,7 +91,6 @@
         android:id="@+id/_divide"
         style="@style/actions_style"
         android:text="@string/_divide"
-        app:backgroundTint="@null"
         app:layout_constraintCircle="@id/_RESULT"
         app:layout_constraintCircleRadius="@dimen/ButtonCircle_radius"
         app:layout_constraintCircleAngle="300"
@@ -102,7 +101,6 @@
         android:id="@+id/_minus"
         style="@style/actions_style"
         android:text="@string/_minus"
-        app:backgroundTint="@null"
         app:layout_constraintCircle="@id/_RESULT"
         app:layout_constraintCircleRadius="@dimen/ButtonCircle_radius"
         app:layout_constraintCircleAngle="330"
@@ -113,7 +111,6 @@
         android:id="@+id/_zapitay"
         style="@style/actions_style"
         android:text="@string/_zapitay"
-        app:backgroundTint="@null"
         app:layout_constraintTop_toBottomOf="@id/_bracket_open"
         app:layout_constraintEnd_toEndOf="@id/_stepen"
         app:layout_constraintStart_toEndOf="@id/_plus_minus"/>
@@ -122,7 +119,6 @@
         android:id="@+id/_multiply"
         style="@style/actions_style"
         android:text="@string/_multiply"
-        app:backgroundTint="@null"
         app:layout_constraintTop_toTopOf="@id/_divide"
         app:layout_constraintEnd_toStartOf="@id/_divide"/>
 
@@ -130,7 +126,6 @@
         android:id="@+id/_plus"
         style="@style/actions_style"
         android:text="@string/_plus"
-        app:backgroundTint="@null"
         app:layout_constraintTop_toTopOf="@id/_minus"
         app:layout_constraintEnd_toStartOf="@id/_minus"/>
 
@@ -138,7 +133,6 @@
         android:id="@+id/_bracket_open"
         style="@style/actions_style"
         android:text="@string/_bracket_open"
-        app:backgroundTint="@null"
         app:layout_constraintTop_toTopOf="@id/_1"
         app:layout_constraintStart_toEndOf="@id/_1"/>
 
@@ -146,7 +140,6 @@
         android:id="@+id/_bracket_close"
         style="@style/actions_style"
         android:text="@string/_bracket_close"
-        app:backgroundTint="@null"
         app:layout_constraintTop_toTopOf="@id/_2"
         app:layout_constraintStart_toEndOf="@id/_2"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -155,7 +148,6 @@
         android:id="@+id/_percent"
         style="@style/actions_style"
         android:text="@string/_percent"
-        app:backgroundTint="@null"
         app:layout_constraintTop_toBottomOf="@id/_4"
         app:layout_constraintStart_toEndOf="@id/_5"/>
 
@@ -163,7 +155,6 @@
         android:id="@+id/_plus_minus"
         style="@style/actions_style"
         android:text="@string/_plus_minus"
-        app:backgroundTint="@null"
         app:layout_constraintTop_toTopOf="@id/_4"
         app:layout_constraintStart_toEndOf="@id/_4"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -173,7 +164,6 @@
         style="@style/actions_style"
         android:text="@string/_stepen"
         android:textStyle="normal"
-        app:backgroundTint="@null"
         app:layout_constraintTop_toTopOf="@id/_8"
         app:layout_constraintEnd_toStartOf="@id/_8" />
 
@@ -182,7 +172,6 @@
         style="@style/actions_style"
         android:text="@string/_sqrt"
         android:textStyle="normal"
-        app:backgroundTint="@null"
         app:layout_constraintTop_toBottomOf="@id/_8"
         app:layout_constraintEnd_toStartOf="@id/_7"/>
 
@@ -190,7 +179,6 @@
         android:id="@+id/_equal"
         style="@style/actions_style"
         android:text="@string/_equal"
-        app:backgroundTint="@null"
         app:layout_constraintBottom_toTopOf="@id/_6"
         app:layout_constraintStart_toEndOf="@id/_7"
         app:layout_constraintEnd_toStartOf="@id/_5"/>
@@ -201,7 +189,15 @@
         android:text="@string/_backspaceOne"
         android:textStyle="normal"
         android:textColor="@color/red_erase"
-        app:backgroundTint="@null"
+        app:layout_constraintEnd_toStartOf="@id/_backspace_two"
+        app:layout_constraintBottom_toTopOf="@id/_input_history"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/_backspace_two"
+        style="@style/actions_style"
+        android:text="@string/_backspaceTwo"
+        android:textStyle="normal"
+        android:textColor="@color/red_erase"
         app:layout_constraintEnd_toStartOf="@id/_backspace"
         app:layout_constraintBottom_toTopOf="@id/_input_history"/>
 
@@ -210,7 +206,6 @@
         style="@style/actions_style"
         android:text="@string/_backspace"
         android:textColor="@color/red_erase"
-        app:backgroundTint="@null"
         app:layout_constraintBottom_toTopOf="@id/_input_history"
         app:layout_constraintEnd_toEndOf="@id/_input_history" />
 

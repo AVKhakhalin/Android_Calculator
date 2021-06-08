@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -96,6 +95,10 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
                 calcLogic.clearOne();
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
                 break;
+            case R.id._backspace_two:
+                calcLogic.clearTwo();
+                inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
+                break;
             case R.id._divide:
                 calcLogic.setNewAction(ACTIONS.ACT_DIV);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
@@ -166,12 +169,14 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
         button_equal.setOnClickListener(this);
         Button button_zapitay = findViewById(R.id._zapitay);
         button_zapitay.setOnClickListener(this);
-        Button button_backspace = findViewById(R.id._backspace);
-        button_backspace.setOnClickListener(this);
         Button button_bracket_close = findViewById(R.id._bracket_close);
         button_bracket_close.setOnClickListener(this);
+        Button button_backspace = findViewById(R.id._backspace);
+        button_backspace.setOnClickListener(this);
         Button button_backspace_one = findViewById(R.id._backspace_one);
         button_backspace_one.setOnClickListener(this);
+        Button button_backspace_two = findViewById(R.id._backspace_two);
+        button_backspace_two.setOnClickListener(this);
         Button button_bracket_open = findViewById(R.id._bracket_open);
         button_bracket_open.setOnClickListener(this);
         Button button_divide = findViewById(R.id._divide);

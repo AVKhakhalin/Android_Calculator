@@ -25,8 +25,9 @@
     <string name="_plus_minus">+/-</string>
     <string name="_stepen">x^n</string>
     <string name="_sqrt">Кx</string>
-    <string name="_backspaceOne"><![CDATA[<--]]></string>
+    <string name="_backspaceTwo"><![CDATA[<--]]></string>
     <string name="_backspace">C</string>
     <string name="InputHistory_text"></string>
     <string name="RESULT_text"></string>
+    <string name="_backspaceOne"><![CDATA[<-]]></string>
 </resources>

@@ -13,6 +13,7 @@ public class CalcLogic implements Constants
                                                    // в результате всех вычислений, в данном классе не останется ни одной скобки
     LinkedList<Dates> inputNumbersForBaseCalc;     // Класс со значениями для вычислений внутри скобок
     ListIterator<Dates> iterInputNumbersForCalc;   // Создание итератора для навигации по списку со значениями
+    boolean pressedZapitay = false;                // Признак нажатой кнопки запятой
 
     public CalcLogic()
     {
@@ -40,15 +41,11 @@ public class CalcLogic implements Constants
         {
             inputNumbers.get(curNumber).setRealPartValue(newNumeral);
             inputNumbers.get(curNumber).setNumberZapitay(inputNumbers.get(curNumber).getNumberZapitay() + 1);
-//            set(curNumber, inputNumbers.get(curNumber).getIsBracket(), false, FUNCTIONS.FUNC_NO, curBracketLevel, inputNumbers.get(curNumber).getSign(), inputNumbers.get(curNumber).getValue() + Math.pow(10, -inputNumbers.get(curNumber).getNumberZapitay()) * (double) (newNumeral), true, inputNumbers.get(curNumber).getAction(), inputNumbers.get(curNumber).getIsPercent());
             if (inputNumbers.get(curNumber).getIntegerPartValue().length() > 0)
             {
                 intPartValue = Double.parseDouble(inputNumbers.get(curNumber).getIntegerPartValue());
             }
             realPartValue = Double.parseDouble(inputNumbers.get(curNumber).getRealPartValue()) * Math.pow(10, -1 * inputNumbers.get(curNumber).getRealPartValue().length());
-//            set(curNumber, inputNumbers.get(curNumber).getIsBracket(), false, FUNCTIONS.FUNC_NO, curBracketLevel, inputNumbers.get(curNumber).getSign(), intPartValue + realPartValue, true, inputNumbers.get(curNumber).getAction(), inputNumbers.get(curNumber).getIsPercent());
-//            inputNumbers.get(curNumber).setValueFract(inputNumbers.get(curNumber).getValueFract() + String.format("%d", newNumeral));
-            inputNumbers.get(curNumber).setValueFract(inputNumbers.get(curNumber).getRealPartValue());
         }
         else
         {
@@ -91,9 +88,121 @@ public class CalcLogic implements Constants
         curNumber = 0;
         // Создание первого пустого элемента
         add(false, false, FUNCTIONS.FUNC_NO,1, 0d, false, ACTIONS.ACT_PLUS, false);
+        pressedZapitay = false;
     }
 
     public void clearOne()
+    {
+        if (inputNumbers.get(curNumber).getIsValue() == true)
+        {
+            if (pressedZapitay == true)
+            {
+                if (inputNumbers.get(curNumber).getRealPartValue().length() > 0)
+                {
+                    inputNumbers.get(curNumber).setRealPartValueDecreaseOne();
+                }
+                else if (inputNumbers.get(curNumber).getIntegerPartValue().length() > 0)
+                {
+                    inputNumbers.get(curNumber).setIntegerPartValueDecreaseOne();
+                }
+            }
+            else
+            {
+                if (inputNumbers.get(curNumber).getIntegerPartValue().length() > 0)
+                {
+                    inputNumbers.get(curNumber).setIntegerPartValueDecreaseOne();
+                }
+                else if (inputNumbers.get(curNumber).getRealPartValue().length() > 0)
+                {
+                    inputNumbers.get(curNumber).setRealPartValueDecreaseOne();
+                }
+            }
+
+            if ((inputNumbers.get(curNumber).getIntegerPartValue().length() == 0) && (inputNumbers.get(curNumber).getRealPartValue().length() == 0))
+            {
+                inputNumbers.get(curNumber).setSign(1);
+                inputNumbers.get(curNumber).setIsValue(false);
+                pressedZapitay = false;
+            }
+            else
+            {
+                double intPartValue = 0d;
+                double realPartValue = 0d;
+                if (inputNumbers.get(curNumber).getIntegerPartValue().length() > 0)
+                {
+                    intPartValue = Double.parseDouble(inputNumbers.get(curNumber).getIntegerPartValue());
+                }
+
+                if (inputNumbers.get(curNumber).getRealPartValue().length() > 0)
+                {
+                    realPartValue = Double.parseDouble(inputNumbers.get(curNumber).getRealPartValue()) * Math.pow(10, -1 * inputNumbers.get(curNumber).getRealPartValue().length());
+                }
+                inputNumbers.get(curNumber).setValue(intPartValue + realPartValue);
+            }
+        }
+        else
+        {
+            if (curNumber > 0)
+            {
+                if ((inputNumbers.get(curNumber).getIsBracket() == true) && (inputNumbers.get(curNumber).getIsClose() == true))
+                {
+                    if ((inputNumbers.get(curNumber).getAction() == ACTIONS.ACT_PERS_MULTY) || ((inputNumbers.get(curNumber).getAction() == ACTIONS.ACT_PERS_DIV)) || ((inputNumbers.get(curNumber).getAction() == ACTIONS.ACT_PERS_PLUS)) || ((inputNumbers.get(curNumber).getAction() == ACTIONS.ACT_PERS_MINUS)))
+                    {
+                        // Определение позиции (positionBracketBegin)
+                        int positionBracketBegin = curNumber;
+                        Dates prevDates;
+                        int counter = 0;
+                        iterInputNumbersForCalc = inputNumbers.listIterator(curNumber);
+                        while (iterInputNumbersForCalc.hasPrevious())
+                        {
+                            prevDates = iterInputNumbersForCalc.previous();
+                            double viewDates = prevDates.getValue();
+                            counter++;
+                            if ((prevDates.getBracketLevel() == curBracketLevel + 1) && (prevDates.getIsBracket() == true) && (prevDates.getIsClose() == false))
+                            {
+                                positionBracketBegin -= counter;
+                                break;
+                            }
+                        }
+                        if (inputNumbers.get(positionBracketBegin).getAction() == ACTIONS.ACT_PERS_MULTY)
+                        {
+                            inputNumbers.get(positionBracketBegin).setAction(ACTIONS.ACT_MULTY);
+                        }
+                        if (inputNumbers.get(positionBracketBegin).getAction() == ACTIONS.ACT_PERS_DIV)
+                        {
+                            inputNumbers.get(positionBracketBegin).setAction(ACTIONS.ACT_DIV);
+                        }
+                        if (inputNumbers.get(positionBracketBegin).getAction() == ACTIONS.ACT_PERS_PLUS)
+                        {
+                            inputNumbers.get(positionBracketBegin).setAction(ACTIONS.ACT_PLUS);
+                        }
+                        if (inputNumbers.get(positionBracketBegin).getAction() == ACTIONS.ACT_PERS_MINUS)
+                        {
+                            inputNumbers.get(positionBracketBegin).setAction(ACTIONS.ACT_MINUS);
+                        }
+                    }
+
+                    curBracketLevel++;
+                    if (maxBracketLevel < curBracketLevel)
+                    {
+                        maxBracketLevel = curBracketLevel;
+                    }
+                }
+                if ((inputNumbers.get(curNumber).getIsBracket() == true) && (inputNumbers.get(curNumber).getIsClose() == false))
+                {
+                    curBracketLevel--;
+                }
+                inputNumbers.remove(curNumber);
+                curNumber--;
+            }
+            else
+            {
+                clearAll();
+            }
+        }
+    }
+
+    public void clearTwo()
     {
         if (curNumber > 0)
         {
@@ -164,7 +273,7 @@ public class CalcLogic implements Constants
         while (iterInputNumbersForCalc.hasNext())
         {
             curDates = iterInputNumbersForCalc.next();
-            newInputNumbers.add(new Dates(curDates.getIsBracket(), curDates.getIsClose(), curDates.getTypeFuncInBracket(), curDates.getBracketLevel(), curDates.getSign(), curDates.getValue(), curDates.getIsValue(), curDates.getValueFract(), curDates.getAction(), curDates.getIsPercent(), curDates.getNumberZapitay(), curDates.getTurnOffZapitay()));
+            newInputNumbers.add(new Dates(curDates.getIsBracket(), curDates.getIsClose(), curDates.getTypeFuncInBracket(), curDates.getBracketLevel(), curDates.getSign(), curDates.getValue(), curDates.getIsValue(), curDates.getAction(), curDates.getIsPercent(), curDates.getNumberZapitay(), curDates.getTurnOffZapitay()));
         }
         return newInputNumbers;
     }
@@ -203,7 +312,7 @@ public class CalcLogic implements Constants
                             double viewParam3 = curDates.getValue();
                             if ((curDates.getBracketLevel() == i) && (curDates.getIsClose() == false))
                             {
-                                inputNumbersForBaseCalc.add(new Dates(curDates.getIsBracket(), curDates.getIsClose(), curDates.getTypeFuncInBracket(), curDates.getBracketLevel(), curDates.getSign(), curDates.getValue(), curDates.getIsValue(), curDates.getValueFract(), curDates.getAction(), curDates.getIsPercent(), curDates.getNumberZapitay(), curDates.getTurnOffZapitay()));
+                                inputNumbersForBaseCalc.add(new Dates(curDates.getIsBracket(), curDates.getIsClose(), curDates.getTypeFuncInBracket(), curDates.getBracketLevel(), curDates.getSign(), curDates.getValue(), curDates.getIsValue(), curDates.getAction(), curDates.getIsPercent(), curDates.getNumberZapitay(), curDates.getTurnOffZapitay()));
                                 iterInputNumbersForCalc.remove();
                             }
                             else if ((curDates.getBracketLevel() == i) && (curDates.getIsClose() == true))
@@ -353,6 +462,8 @@ public class CalcLogic implements Constants
 
     public void setCurZapitay()
     {
+        pressedZapitay = (pressedZapitay == false ? true : false); // Отслеживание нажатия на кнопку "Zapitay"
+
         if (inputNumbers.get(curNumber).getTurnOffZapitay() == true)
         {
             inputNumbers.get(curNumber).setTurnOffZapitay(false);
@@ -546,7 +657,6 @@ public class CalcLogic implements Constants
         String outputString = "";
         Dates curDates;
         Dates prevDates = null;
-//        int counter = -1;
 
         iterInputNumbersForCalc = inputNumbers.listIterator();
 
@@ -588,7 +698,6 @@ public class CalcLogic implements Constants
         int sign = curDates.getSign();
         double value = curDates.getValue() * sign;
         boolean isValue = curDates.getIsValue();
-        String valueFract = curDates.getValueFract();
         ACTIONS action = curDates.getAction();
         boolean isPercent = curDates.getIsPercent();
         int numberZapitay = curDates.getNumberZapitay();
@@ -601,14 +710,15 @@ public class CalcLogic implements Constants
         }
         boolean isFirst = (prevDates == null ? true : false);
         String stringAction = "";
-        String valueString;
-        if (valueFract.equals("") == true)
+        String valueString = "";
+        if (isValue == true)
         {
-            valueString = (numberZapitay == 0 ? String.format("%d.", (int) value) : String.format("%d", (int) value));
-        }
-        else
-        {
-            valueString = String.format("%d.%s", (int) value, valueFract);
+            valueString = (curDates.getIntegerPartValue().length() > 0 ? curDates.getIntegerPartValue() : "0");
+            if ((turnOffZapitay == false) || (curDates.getRealPartValue().length() > 0))
+            {
+                valueString += ".";
+            }
+            valueString = valueString + (curDates.getRealPartValue().length() > 0 ? curDates.getRealPartValue() : "");
         }
 
         if (isFirst == false)
