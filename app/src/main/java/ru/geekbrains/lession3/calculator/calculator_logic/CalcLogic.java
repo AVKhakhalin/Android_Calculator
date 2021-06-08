@@ -55,18 +55,18 @@ public class CalcLogic implements Constants
             {
                 realPartValue = Double.parseDouble(inputNumbers.get(curNumber).getRealPartValue()) * Math.pow(10, -1 * inputNumbers.get(curNumber).getRealPartValue().length());
             }
-//            set(curNumber, inputNumbers.get(curNumber).getIsBracket(), false, FUNCTIONS.FUNC_NO, curBracketLevel, inputNumbers.get(curNumber).getSign(), (int) inputNumbers.get(curNumber).getValue() * 10 + (double) (newNumeral) + (inputNumbers.get(curNumber).getValue() - (int) inputNumbers.get(curNumber).getValue()), true, inputNumbers.get(curNumber).getAction(), inputNumbers.get(curNumber).getIsPercent());
-//            set(curNumber, inputNumbers.get(curNumber).getIsBracket(), false, FUNCTIONS.FUNC_NO, curBracketLevel, inputNumbers.get(curNumber).getSign(), intPartValue + realPartValue, true, inputNumbers.get(curNumber).getAction(), inputNumbers.get(curNumber).getIsPercent());
         }
         set(curNumber, inputNumbers.get(curNumber).getIsBracket(), false, FUNCTIONS.FUNC_NO, curBracketLevel, inputNumbers.get(curNumber).getSign(), intPartValue + realPartValue, true, inputNumbers.get(curNumber).getAction(), inputNumbers.get(curNumber).getIsPercent());
         return inputNumbers.get(curNumber).getValue();
     }
 
+    // Метод для добавления нового элемента
     public void add(boolean _isBracket, boolean _isClose, FUNCTIONS _typeFuncInBracket, int _sign, double _value, boolean _isValue, ACTIONS _action, boolean _isPercent)
     {
         inputNumbers.add(new Dates(_isBracket, _isClose, _typeFuncInBracket, curBracketLevel, _sign, _value, _isValue, _action, _isPercent));
     }
 
+    // Метод для установки параметров, необходимых для проведения расчётов
     public void set(int posNumber, boolean _isBracket, boolean _isClose, FUNCTIONS _typeFuncInBracket, int _bracketLevel, int _sign, double _value, boolean _isValue, ACTIONS _action, boolean _isPercent)
     {
         inputNumbers.get(posNumber).setIsBracket(_isBracket);
@@ -80,6 +80,7 @@ public class CalcLogic implements Constants
         inputNumbers.get(posNumber).setIsPercent(_isPercent);
     }
 
+    // Метод для удаления всех созданных элементов
     public void clearAll()
     {
         inputNumbers = new LinkedList<>();
@@ -91,7 +92,8 @@ public class CalcLogic implements Constants
         pressedZapitay = false;
     }
 
-    public void clearOne()
+    // Метод для коррекции последнего созданного элемента
+    public boolean clearOne()
     {
         if (inputNumbers.get(curNumber).getIsValue() == true)
         {
@@ -122,6 +124,8 @@ public class CalcLogic implements Constants
             {
                 inputNumbers.get(curNumber).setSign(1);
                 inputNumbers.get(curNumber).setIsValue(false);
+                inputNumbers.get(curNumber).setValue(0d);
+                inputNumbers.get(curNumber).setTurnOffZapitay(true);
                 pressedZapitay = false;
             }
             else
@@ -156,7 +160,6 @@ public class CalcLogic implements Constants
                         while (iterInputNumbersForCalc.hasPrevious())
                         {
                             prevDates = iterInputNumbersForCalc.previous();
-                            double viewDates = prevDates.getValue();
                             counter++;
                             if ((prevDates.getBracketLevel() == curBracketLevel + 1) && (prevDates.getIsBracket() == true) && (prevDates.getIsClose() == false))
                             {
@@ -198,11 +201,14 @@ public class CalcLogic implements Constants
             else
             {
                 clearAll();
+                return false;
             }
         }
+        return true;
     }
 
-    public void clearTwo()
+    // Метод для удалению последнего созданного элемента
+    public boolean clearTwo()
     {
         if (curNumber > 0)
         {
@@ -218,7 +224,6 @@ public class CalcLogic implements Constants
                     while (iterInputNumbersForCalc.hasPrevious())
                     {
                         prevDates = iterInputNumbersForCalc.previous();
-                        double viewDates = prevDates.getValue();
                         counter++;
                         if ((prevDates.getBracketLevel() == curBracketLevel + 1) && (prevDates.getIsBracket() == true) && (prevDates.getIsClose() == false))
                         {
@@ -260,7 +265,9 @@ public class CalcLogic implements Constants
         else
         {
             clearAll();
+            return false;
         }
+        return true;
     }
 
     // Класс для копирования списков с объектами
@@ -307,9 +314,6 @@ public class CalcLogic implements Constants
                         while (iterInputNumbersForCalc.hasNext())
                         {
                             curDates = iterInputNumbersForCalc.next();
-                            int viewParam1 = curDates.getBracketLevel();
-                            boolean viewParam2 = curDates.getIsClose();
-                            double viewParam3 = curDates.getValue();
                             if ((curDates.getBracketLevel() == i) && (curDates.getIsClose() == false))
                             {
                                 inputNumbersForBaseCalc.add(new Dates(curDates.getIsBracket(), curDates.getIsClose(), curDates.getTypeFuncInBracket(), curDates.getBracketLevel(), curDates.getSign(), curDates.getValue(), curDates.getIsValue(), curDates.getAction(), curDates.getIsPercent(), curDates.getNumberZapitay(), curDates.getTurnOffZapitay()));
@@ -361,6 +365,7 @@ public class CalcLogic implements Constants
         return result;
     }
 
+    // Работа функций
     private double doFunction(double value, FUNCTIONS typeFuncInBracket)
     {
         double result = value;
@@ -383,6 +388,7 @@ public class CalcLogic implements Constants
         return result;
     }
 
+    // Вычисление элементов без скобок
     private double moveOnWithoutBracket(LinkedList<Dates> curNumbersForCals)
     {
         double result = 0d;
@@ -420,6 +426,7 @@ public class CalcLogic implements Constants
         return result;
     }
 
+    // Действия над числами
     private double doBaseActions(double number1, double number2, ACTIONS action)
     {
         double result = 0d;
@@ -460,6 +467,7 @@ public class CalcLogic implements Constants
         return result;
     }
 
+    // Отслеживание нажатия на кнопку с запятой (переключение между режимами работы с вещественными и целыми числами)
     public void setCurZapitay()
     {
         pressedZapitay = (pressedZapitay == false ? true : false); // Отслеживание нажатия на кнопку "Zapitay"
@@ -478,16 +486,7 @@ public class CalcLogic implements Constants
         }
     }
 
-    public int getCurZapitay()
-    {
-        return inputNumbers.get(curNumber).getNumberZapitay();
-    }
-
-    public int getCurNumber()
-    {
-        return curNumber;
-    }
-
+    // Установка для функции, а также новой скобки, поскольку функции без скобок не бывает
     public String setNewFunction(FUNCTIONS typeFuncInBracket) // Данный метод не только устанавливает новую функцию, но и открывает скобку
     {
         if (inputNumbers.get(curNumber).getIsBracket() == true)
@@ -513,6 +512,7 @@ public class CalcLogic implements Constants
         return createOutput();
     }
 
+    // Установка закрывающейся скобки
     public String closeBracket()
     {
         if (curBracketLevel > 0)
@@ -524,6 +524,7 @@ public class CalcLogic implements Constants
         return createOutput();
     }
 
+    // Установка нового действия над числами
     public void setNewAction(ACTIONS action)
     {
         int positionBracketBegin = curNumber;
@@ -635,8 +636,10 @@ public class CalcLogic implements Constants
         }
     }
 
+    // Сменить знак в текущем элементе
     public void changeSign()
     {
+
         if ((inputNumbers.get(curNumber).getAction() == ACTIONS.ACT_PLUS) && (curNumber > 0) && (((inputNumbers.get(curNumber - 1).getIsBracket() == true) && (inputNumbers.get(curNumber - 1).getIsClose() == true)) || ((inputNumbers.get(curNumber - 1).getIsBracket() == false) && (inputNumbers.get(curNumber - 1).getIsClose() == false))))
         {
             inputNumbers.get(curNumber).setAction(ACTIONS.ACT_MINUS);
@@ -651,7 +654,7 @@ public class CalcLogic implements Constants
         }
     }
 
-    // Основной мето для вывода информации в историю введённых чисел, действий и функций
+    // Основной метод для вывода информации в историю введённых чисел, действий и функций
     public String createOutput()
     {
         String outputString = "";
@@ -670,6 +673,7 @@ public class CalcLogic implements Constants
         return outputString;
     }
 
+    // Метод для правильного отображения функции
     private String outputStringFunctionOpen(Dates curDates)
     {
         String stringFunction = "";
@@ -689,18 +693,15 @@ public class CalcLogic implements Constants
         return stringFunction;
     }
 
+    // Метод для отображения текущего элемента
     private String outputStringActionAndFunction(Dates prevDates, Dates curDates)
     {
         boolean isBracket = curDates.getIsBracket();
         boolean isClose = curDates.getIsClose();
-        FUNCTIONS typeFuncInBracket = curDates.getTypeFuncInBracket();
-        int bracketLevel = curDates.getBracketLevel();
         int sign = curDates.getSign();
         double value = curDates.getValue() * sign;
         boolean isValue = curDates.getIsValue();
         ACTIONS action = curDates.getAction();
-        boolean isPercent = curDates.getIsPercent();
-        int numberZapitay = curDates.getNumberZapitay();
         boolean turnOffZapitay = curDates.getTurnOffZapitay();
 
         boolean isPrevBraketOpen = false;
@@ -713,7 +714,7 @@ public class CalcLogic implements Constants
         String valueString = "";
         if (isValue == true)
         {
-            valueString = (curDates.getIntegerPartValue().length() > 0 ? curDates.getIntegerPartValue() : "0");
+            valueString = (curDates.getSign() < 0 ? "-" : "") + (curDates.getIntegerPartValue().length() > 0 ? curDates.getIntegerPartValue() : "0");
             if ((turnOffZapitay == false) || (curDates.getRealPartValue().length() > 0))
             {
                 valueString += ".";
@@ -862,5 +863,10 @@ public class CalcLogic implements Constants
             }
         }
         return stringAction;
+    }
+
+    public boolean getPressedZapitay()
+    {
+        return pressedZapitay;
     }
 }

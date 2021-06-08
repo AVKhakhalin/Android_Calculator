@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -27,7 +28,6 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
 
         initTextFields();
         initButtons();
-//        Toast.makeText(getApplicationContext(), String.valueOf(calcLogic.getCurZapitay()), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -92,11 +92,17 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
                 outputResultText.setText(String.format(Locale.getDefault(), ""));
                 break;
             case R.id._backspace_one:
-                calcLogic.clearOne();
+                if (calcLogic.clearOne() == false)
+                {
+                    outputResultText.setText(String.format(Locale.getDefault(), ""));
+                }
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
                 break;
             case R.id._backspace_two:
-                calcLogic.clearTwo();
+                if (calcLogic.clearTwo() == false)
+                {
+                    outputResultText.setText(String.format(Locale.getDefault(), ""));
+                }
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
                 break;
             case R.id._divide:
@@ -134,6 +140,7 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
             default:
                 break;
         }
+        buttonZapitayChange();
     }
 
     private void initTextFields() {
@@ -195,5 +202,19 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
         button_sqrt.setOnClickListener(this);
         Button button_stepen = findViewById(R.id._stepen);
         button_stepen.setOnClickListener(this);
+    }
+
+    private void buttonZapitayChange()
+    {
+        Button changeZapitay;
+        changeZapitay = ((Button) findViewById(R.id._zapitay));
+        if (calcLogic.getPressedZapitay() == false)
+        {
+            changeZapitay.setBackgroundResource(R.drawable.buttons_with_actions_mg);
+        }
+        else
+        {
+            changeZapitay.setBackgroundResource(R.drawable.buttons_with_numbers_mg);
+        }
     }
 }
