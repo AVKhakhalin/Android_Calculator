@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Locale;
 
+import ru.geekbrains.lession3.calculator.R;
 import ru.geekbrains.lession3.calculator.calculator_logic.CalcLogic;
 import ru.geekbrains.lession3.calculator.calculator_logic.Constants;
-import ru.geekbrains.lession3.calculator.R;
 
 public class CalculatorKeyboardActivity extends Activity implements View.OnClickListener, Constants {
     private TextView outputResultText;
@@ -24,10 +23,28 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calculator_keyboard);
 
-        calcLogic = new CalcLogic();
-
+        // Восстановление класса сalcLogic после поворота экрана
+        calcLogic = (CalcLogic) getLastNonConfigurationInstance();
+        if (calcLogic == null)
+        {
+            calcLogic = new CalcLogic();
+        }
+        // Инициализация текстовых полей
         initTextFields();
+        // Инициализация кнопок
         initButtons();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // Сохранение класса calcLogic перед поворотом экрана
+        onRetainNonConfigurationInstance();
+    }
+
+    // Метод для сохранения ссылки на класс calcLogic при повороте экрана
+    public Object onRetainNonConfigurationInstance() {
+        return calcLogic;
     }
 
     @Override
@@ -89,19 +106,19 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
             case R.id._backspace:
                 calcLogic.clearAll();
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
-                outputResultText.setText(String.format(Locale.getDefault(), ""));
+                outputResultText.setText(String.format(Locale.getDefault(), "%e", calcLogic.calculate()));
                 break;
             case R.id._backspace_one:
                 if (calcLogic.clearOne() == false)
                 {
-                    outputResultText.setText(String.format(Locale.getDefault(), ""));
+                    outputResultText.setText(String.format(Locale.getDefault(), "%e", calcLogic.calculate()));
                 }
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
                 break;
             case R.id._backspace_two:
                 if (calcLogic.clearTwo() == false)
                 {
-                    outputResultText.setText(String.format(Locale.getDefault(), ""));
+                    outputResultText.setText(String.format(Locale.getDefault(), "%e", calcLogic.calculate()));
                 }
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
                 break;
@@ -145,7 +162,9 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
 
     private void initTextFields() {
         outputResultText = findViewById(R.id._RESULT);
+        outputResultText.setText(String.format(Locale.getDefault(), "%e", calcLogic.calculate()));
         inputedHistoryText = findViewById(R.id._inputed_history_text);
+        inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
     }
 
     private void initButtons() {

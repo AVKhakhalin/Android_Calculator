@@ -1,9 +1,14 @@
 package ru.geekbrains.lession3.calculator.calculator_logic;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Locale;
 
-public class CalcLogic implements Constants
+public class CalcLogic implements Serializable, Constants
 {
     LinkedList<Dates> inputNumbers;                // Создание класса со значениями
     int maxBracketLevel;                           // Максимальный уровень вложенности во всех скобках
@@ -35,9 +40,9 @@ public class CalcLogic implements Constants
             add(false, false, FUNCTIONS.FUNC_NO, 1, 0d, false, ACTIONS.ACT_PLUS, false);
             curNumber++;
         }
-        if ((inputNumbers.get(curNumber).getIntegerPartValue().length() == 0) && (newNumeral == 0) && (pressedZapitay == false))
+        if ((inputNumbers.get(curNumber).getValue() == 0d) && (inputNumbers.get(curNumber).getIntegerPartValue().length() > 0) && (newNumeral == 0) && (pressedZapitay == false))
         {
-            // Показать уведомление о том, что целая часть числа не может начинаться с 0
+            // Показать уведомление о том, что для задания целой части числа вполне хватит и одного нуля
         }
         else
         {
@@ -55,6 +60,17 @@ public class CalcLogic implements Constants
             }
             else
             {
+                if (inputNumbers.get(curNumber).getIntegerPartValue().length() > 0) // Подчищение введенной ранее нулевой цифры
+                {
+                    intPartValue = Double.parseDouble(inputNumbers.get(curNumber).getIntegerPartValue());
+                    if (intPartValue == 0d)
+                    {
+                        while (inputNumbers.get(curNumber).getIntegerPartValue().length() > 0)
+                        {
+                            inputNumbers.get(curNumber).setIntegerPartValueDecreaseOne();
+                        }
+                    }
+                }
                 inputNumbers.get(curNumber).setIntegerPartValue(newNumeral);
                 intPartValue = Double.parseDouble(inputNumbers.get(curNumber).getIntegerPartValue());
                 if (inputNumbers.get(curNumber).getRealPartValue().length() > 0)
@@ -303,38 +319,27 @@ public class CalcLogic implements Constants
 
         inputNumbersForBracketCalc = copyLinkedList(inputNumbers); // Создание дубликата класса с числами для обработки выражения со скобками
         // Здесь происходит обработка всех скобок
-        while (isBracketExist == true)
-        {
-            for (int i = maxBracketLevel; i > 0; i--)
-            {
+        while (isBracketExist == true) {
+            for (int i = maxBracketLevel; i > 0; i--) {
                 iterInputNumbersForCalc = inputNumbersForBracketCalc.listIterator();
                 counter = -1;
-                while (iterInputNumbersForCalc.hasNext())
-                {
+                while (iterInputNumbersForCalc.hasNext()) {
                     counter++;
                     curDates = iterInputNumbersForCalc.next();
-                    if (curDates.getBracketLevel() == i)
-                    {
+                    if (curDates.getBracketLevel() == i) {
                         startBracketIndex = counter; // Не забыть вернуть этой переменной значение -1, когда встретим закрывающую скобку
 
                         inputNumbersForBaseCalc = new LinkedList<>();
-                        while (iterInputNumbersForCalc.hasNext())
-                        {
+                        while (iterInputNumbersForCalc.hasNext()) {
                             curDates = iterInputNumbersForCalc.next();
-                            if ((curDates.getBracketLevel() == i) && (curDates.getIsClose() == false))
-                            {
+                            if ((curDates.getBracketLevel() == i) && (curDates.getIsClose() == false)) {
                                 inputNumbersForBaseCalc.add(new Dates(curDates.getIsBracket(), curDates.getIsClose(), curDates.getTypeFuncInBracket(), curDates.getBracketLevel(), curDates.getSign(), curDates.getValue(), curDates.getIsValue(), curDates.getAction(), curDates.getIsPercent(), curDates.getNumberZapitay(), curDates.getTurnOffZapitay()));
                                 iterInputNumbersForCalc.remove();
-                            }
-                            else if ((curDates.getBracketLevel() == i) && (curDates.getIsClose() == true))
-                            {
+                            } else if ((curDates.getBracketLevel() == i) && (curDates.getIsClose() == true)) {
                                 iterInputNumbersForCalc.remove();
                                 break;
-                            }
-                            else
-                            {
-                                if (iterInputNumbersForCalc.hasPrevious() == true)
-                                {
+                            } else {
+                                if (iterInputNumbersForCalc.hasPrevious() == true) {
                                     iterInputNumbersForCalc.previous();
                                 }
                                 break;
@@ -354,11 +359,9 @@ public class CalcLogic implements Constants
             // Проверка наличия скобок в списке
             isBracketExist = false;
             iterInputNumbersForCalc = inputNumbersForBracketCalc.listIterator();
-            while (iterInputNumbersForCalc.hasNext())
-            {
+            while (iterInputNumbersForCalc.hasNext()) {
                 curDates = iterInputNumbersForCalc.next();
-                if (curDates.getIsBracket() == true)
-                {
+                if (curDates.getIsBracket() == true) {
                     isBracketExist = true;
                     break;
                 }

@@ -1,10 +1,11 @@
 package ru.geekbrains.lession3.calculator.calculator_logic;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
 // Класс для хранения единичных данных, используется в списке
-public class Dates implements Constants {
+public class Dates implements Serializable, Constants {
     private boolean isBracket;      // является ли данный элемент скобкой: true = да; false = нет;
                                     // открывающаяся скобка является пустым объектом, в неё потом размещается результат вычислений всех операций в данной скобке; пустой объект имеет вначале value = 0d;
                                     // закрывающая скобка всегда создаётся отдельным элементом без числа; последний объект в скобке имеет свойство isBracket = true, что говорит о том, что скобка закрылась
