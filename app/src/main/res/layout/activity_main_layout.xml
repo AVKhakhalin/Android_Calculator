@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".ui.MainActivity"
+    android:background="@color/backgroundColor">
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:text="@string/Tast1_Title"
+        android:textStyle="bold"
+        android:textSize="@dimen/sizeTextSolveTask1"
+        android:layout_marginLeft="@dimen/margin_Left_Right_text"
+        android:layout_marginRight="@dimen/margin_Left_Right_text"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/solveTask1_Text"
+        android:textSize="@dimen/sizeTextSolveTask1"
+        android:textColor="@color/black"
+        android:layout_marginLeft="@dimen/margin_Left_Right_text"
+        android:layout_marginRight="@dimen/margin_Left_Right_text"
+        android:layout_weight="1" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/runCalculator"
+        style="@style/menu_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/runCalculatorButton_Text"
+        android:textSize="@dimen/sizeTextSolveTask1"
+        android:textAllCaps="false"
+        android:layout_weight="1" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5" />
+</LinearLayout>
