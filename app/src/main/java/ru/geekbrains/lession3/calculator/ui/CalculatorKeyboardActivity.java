@@ -1,6 +1,7 @@
 package ru.geekbrains.lession3.calculator.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,17 +12,20 @@ import java.util.Locale;
 import ru.geekbrains.lession3.calculator.R;
 import ru.geekbrains.lession3.calculator.calculator_logic.CalcLogic;
 import ru.geekbrains.lession3.calculator.calculator_logic.Constants;
+import ru.geekbrains.lession3.calculator.calculator_logic.ThemeStorage;
 
 public class CalculatorKeyboardActivity extends Activity implements View.OnClickListener, Constants {
     private TextView outputResultText;
     private TextView inputedHistoryText;
+    private CalcLogic calcLogic;
 
-    public CalcLogic calcLogic;
+    private ThemeStorage themeStorage = new ThemeStorage();
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.calculator_keyboard);
+        setContentView(R.layout.calc_keyboard_layout);
 
         // Восстановление класса сalcLogic после поворота экрана
         calcLogic = (CalcLogic) getLastNonConfigurationInstance();
@@ -33,6 +37,28 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
         initTextFields();
         // Инициализация кнопок
         initButtons();
+
+        // Установка нового фона
+        Bundle arguments = getIntent().getExtras();
+        if (arguments != null)
+        {
+            int curTheme = Integer.parseInt(arguments.get("settingTheme").toString());
+            themeStorage.setIsLightTheme(curTheme);
+
+            if (themeStorage != null)
+            {
+                view = (View) findViewById(R.id._background_theme);
+                view.setBackgroundResource(R.drawable.back_calc);
+                if (themeStorage.getIsLightTheme() == 1)
+                {
+                    view.setBackgroundResource(R.drawable.back_calc);
+                }
+                else
+                {
+                    view.setBackgroundResource(R.drawable.back_calc_dark);
+                }
+            }
+        }
     }
 
     @Override
@@ -45,6 +71,11 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
     // Метод для сохранения ссылки на класс calcLogic при повороте экрана
     public Object onRetainNonConfigurationInstance() {
         return calcLogic;
+    }
+
+    // Метод для сохранения ссылки на класс ThemeStorage при повороте экрана
+    public Object onRetainNonConfigurationInstanceTheme() {
+        return themeStorage;
     }
 
     @Override
@@ -154,6 +185,11 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
                 calcLogic.setNewFunction(FUNCTIONS.FUNC_SQRT);
                 inputedHistoryText.setText(String.format(Locale.getDefault(), "%s", calcLogic.createOutput()));
                 break;
+            case R.id._menu_theme:
+                Intent menuIntent = new Intent(CalculatorKeyboardActivity.this, MenuActivity.class);
+                menuIntent.putExtra("settingTheme", themeStorage.getIsLightTheme());
+                startActivity(menuIntent);
+                break;
             default:
                 break;
         }
@@ -221,6 +257,8 @@ public class CalculatorKeyboardActivity extends Activity implements View.OnClick
         button_sqrt.setOnClickListener(this);
         Button button_stepen = findViewById(R.id._stepen);
         button_stepen.setOnClickListener(this);
+        Button button_change_theme = findViewById(R.id._menu_theme);
+        button_change_theme.setOnClickListener(this);
     }
 
     private void buttonZapitayChange()

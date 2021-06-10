@@ -4,9 +4,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back_calc"
     android:layout_gravity="center_horizontal"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/_background_theme"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/back_calc"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/_0"
@@ -211,6 +216,16 @@
         android:textColor="@color/red_erase"
         app:layout_constraintBottom_toTopOf="@id/_input_history"
         app:layout_constraintEnd_toEndOf="@id/_input_history" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/_menu_theme"
+        android:layout_width="150dp"
+        style="@style/menu_style"
+        android:textAllCaps="false"
+        android:text="@string/_settings"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toTopOf="@id/_input_history"
+        app:layout_constraintStart_toStartOf="@id/_input_history" />
 
     <TextView
         android:id="@+id/_RESULT"

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <View
+        android:id="@+id/_menu_background_theme"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/back_calc"/>
+
+    <TextView
+        android:id="@+id/_title_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_menu_themes_text"
+        android:textSize="@dimen/title_menu_theme_size"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/_light_theme" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/_light_theme"
+            style="@style/menu_style"
+            android:layout_width="@dimen/light_theme_button_width"
+            android:layout_height="wrap_content"
+            android:text="Светлая тема"
+            android:layout_margin="@dimen/light_theme_button_margin"
+            app:layout_constraintTop_toBottomOf="@id/_title_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/_dark_theme"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/_dark_theme"
+        style="@style/menu_style"
+        android:layout_width="@dimen/dark_theme_button_width"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dark_theme_button_margin"
+        android:text="Тёмная тема"
+        app:layout_constraintBottom_toTopOf="@id/_return"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/_light_theme" />
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/_return"
+            style="@style/menu_style"
+            android:layout_width="@dimen/dark_theme_button_width"
+            android:layout_height="wrap_content"
+            android:text="Вернуться"
+            android:layout_margin="@dimen/dark_theme_button_margin"
+            app:layout_constraintTop_toBottomOf="@id/_dark_theme"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
